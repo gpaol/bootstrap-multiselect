@@ -1,0 +1,60 @@
+name: Publish to NuGet
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 1.1.0)'
+        required: true
+        type: string
+
+jobs:
+  publish-nuget:
+    name: Publish NuGet Package
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore bootstrap-multiselect.sln
+
+    - name: Build
+      run: dotnet build bootstrap-multiselect.sln --configuration Release --no-restore
+
+    - name: Pack NuGet package
+      run: dotnet pack src/BootstrapMultiSelect.MVC/BootstrapMultiSelect.MVC.csproj --configuration Release --no-build --output ./artifacts
+
+    - name: List artifacts
+      run: ls -la ./artifacts/
+
+    - name: Push to NuGet.org
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+    - name: Push to GitHub Packages
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --skip-duplicate
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload artifacts to release
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./artifacts/BootstrapMultiSelect.MVC.${{ github.event.release.tag_name }}.nupkg
+        asset_name: BootstrapMultiSelect.MVC.${{ github.event.release.tag_name }}.nupkg
+        asset_content_type: application/zip

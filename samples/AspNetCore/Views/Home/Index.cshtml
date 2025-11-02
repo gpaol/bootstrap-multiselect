@@ -1,0 +1,272 @@
+@{
+    ViewData["Title"] = "Bootstrap MultiSelect - Home";
+}
+
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-3 fw-bold mb-4">
+                <i class="bi bi-check2-square text-primary"></i>
+                Bootstrap MultiSelect
+            </h1>
+            <p class="lead text-muted mb-4">
+                A powerful and flexible multi-select component for Bootstrap 5, available as both a jQuery plugin and an
+                ASP.NET Core MVC library
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a asp-controller="Examples" asp-action="Plugin" class="btn btn-primary btn-lg">
+                    <i class="bi bi-code-square"></i> View Plugin Examples
+                </a>
+                <a asp-controller="Examples" asp-action="MVC" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-ui-checks-grid"></i> View MVC Examples
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Features Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5">
+                <i class="bi bi-star-fill text-warning"></i> Key Features
+            </h2>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-search text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Search & Filter</h5>
+                    <p class="card-text">Built-in search functionality to quickly find and select items from long lists
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-collection text-success" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">OptGroups Support</h5>
+                    <p class="card-text">Organize options into groups for better usability and clearer categorization
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-translate text-info" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Internationalization</h5>
+                    <p class="card-text">Full localization support for English, Italian, Spanish, French, German, and
+                        Portuguese</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-palette text-danger" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Themeable</h5>
+                    <p class="card-text">Uses Bootstrap 5 theme colors and supports custom styling</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-phone text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Responsive</h5>
+                    <p class="card-text">Works seamlessly on mobile, tablet, and desktop devices</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-gear-fill text-secondary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title">Highly Configurable</h5>
+                    <p class="card-text">15+ configuration options to customize behavior and appearance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Two Implementations Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5">
+                <i class="bi bi-layers-fill text-primary"></i> Two Ways to Use It
+            </h2>
+        </div>
+
+        <!-- jQuery Plugin -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 border-primary shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="bi bi-code-square"></i> jQuery Plugin
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        A standalone jQuery plugin that can be used in any web application. Perfect for pure
+                        JavaScript/jQuery projects.
+                    </p>
+                    <h6 class="mt-4 mb-3">Features:</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Pure JavaScript implementation</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Data attributes for easy initialization
+                        </li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Programmatic API for dynamic control
+                        </li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Event system for custom interactions
+                        </li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Works with plain HTML selects</li>
+                    </ul>
+                    <h6 class="mt-4 mb-3">Usage Example:</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;select data-toggle="bootstrap-multiselect"
+        data-placeholder="Select items..."
+        data-search="true"&gt;
+    &lt;option value="1"&gt;Item 1&lt;/option&gt;
+    &lt;option value="2"&gt;Item 2&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+                    <div class="mt-4">
+                        <a asp-controller="Examples" asp-action="Plugin" class="btn btn-primary w-100">
+                            <i class="bi bi-eye"></i> View Plugin Examples
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ASP.NET Core MVC Library -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 border-success shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">
+                        <i class="bi bi-ui-checks-grid"></i> ASP.NET Core MVC Library
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        A fully integrated ASP.NET Core MVC library with TagHelper and HtmlHelper support. Ideal for
+                        .NET web applications.
+                    </p>
+                    <h6 class="mt-4 mb-3">Features:</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Native TagHelper support</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> HtmlHelper extension methods</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Model binding and validation</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Strongly-typed configuration</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Seamless ASP.NET Core integration</li>
+                    </ul>
+                    <h6 class="mt-4 mb-3">Usage Example:</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;multiselect asp-for="SelectedItems"
+             asp-items="ViewBag.Items"
+             placeholder="Select items..."
+             search="true" /&gt;
+
+@@ Or with HtmlHelper:
+@@Html.BootstrapMultiSelect(
+    m => m.SelectedItems,
+    ViewBag.Items)</code></pre>
+                    <div class="mt-4">
+                        <a asp-controller="Examples" asp-action="MVC" class="btn btn-success w-100">
+                            <i class="bi bi-eye"></i> View MVC Examples
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Quick Start Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5">
+                <i class="bi bi-rocket-takeoff-fill text-danger"></i> Quick Start
+            </h2>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-code-square text-primary"></i> jQuery Plugin Setup
+                    </h5>
+                    <ol class="mt-3">
+                        <li class="mb-2">Include Bootstrap 5 CSS and JS</li>
+                        <li class="mb-2">Include jQuery</li>
+                        <li class="mb-2">Include the plugin CSS and JS files</li>
+                        <li class="mb-2">Initialize with data attributes or JavaScript</li>
+                    </ol>
+                    <pre class="bg-light p-3 rounded small"><code>&lt;link href="bootstrap.min.css" /&gt;
+&lt;link href="jquery-bootstrap-multiselect.css" /&gt;
+
+&lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+&lt;script src="jquery-bootstrap-multiselect.js"&gt;&lt;/script&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-ui-checks-grid text-success"></i> MVC Library Setup
+                    </h5>
+                    <ol class="mt-3">
+                        <li class="mb-2">Install the NuGet package</li>
+                        <li class="mb-2">Add TagHelper to _ViewImports.cshtml</li>
+                        <li class="mb-2">Include CSS/JS in your layout</li>
+                        <li class="mb-2">Use the TagHelper or HtmlHelper</li>
+                    </ol>
+                    <pre class="bg-light p-3 rounded small"><code>@@ In _ViewImports.cshtml:
+@@addTagHelper *, BootstrapMultiSelect.MVC
+
+@@ In your view:
+&lt;multiselect asp-for="SelectedItems"
+             asp-items="ViewBag.Items" /&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card bg-light text-center shadow-lg">
+                <div class="card-body p-5">
+                    <h2 class="mb-4">Ready to Get Started?</h2>
+                    <p class="lead mb-4">Explore our comprehensive examples and see Bootstrap MultiSelect in action!</p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a asp-controller="Examples" asp-action="Plugin" class="btn btn-primary btn-lg">
+                            <i class="bi bi-code-square"></i> jQuery Plugin Examples
+                        </a>
+                        <a asp-controller="Examples" asp-action="MVC" class="btn btn-success btn-lg">
+                            <i class="bi bi-ui-checks-grid"></i> ASP.NET MVC Examples
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

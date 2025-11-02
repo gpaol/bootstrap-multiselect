@@ -1,0 +1,410 @@
+@model BootstrapMultiSelectExamples.Models.ExampleViewModel
+@addTagHelper *, BootstrapMultiSelect.MVC
+@{
+    ViewData["Title"] = "Bootstrap MultiSelect MVC Examples";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-4 mb-4">
+                <i class="bi bi-ui-checks-grid"></i> Bootstrap MultiSelect MVC Library Examples
+            </h1>
+            <p class="lead">
+                Complete examples demonstrating the BootstrapMultiSelect library with validation,
+                submission, and various configurations.
+            </p>
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-form"></i> Example Form</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Index" method="post" id="exampleForm">
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Personal Information -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-person"></i> Personal Information</h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label"></label>
+                                <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control" type="email"
+                                    placeholder="your.email@example.com" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Example 1: Basic MultiSelect with Validation -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-1-circle"></i> Basic MultiSelect with Required
+                                Validation</h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label asp-for="SelectedCountries" class="form-label"></label>
+                                <multiselect asp-for="SelectedCountries" asp-items="ViewBag.Countries"
+                                    placeholder="Select countries..." search="true" select-all="true" theme="primary"
+                                    max-height="250px"></multiselect>
+                                <span asp-validation-for="SelectedCountries" class="text-danger"></span>
+                                <small class="form-text text-muted">
+                                    <i class="bi bi-info-circle"></i> This field is required. Select at least one
+                                    country.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Example 2: MultiSelect with Max Selection -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-2-circle"></i> MultiSelect with Maximum Selection
+                                Limit</h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label asp-for="SelectedSkills" class="form-label"></label>
+                                <multiselect asp-for="SelectedSkills" asp-items="ViewBag.Skills"
+                                    placeholder="Select up to 3 skills..." max-selection="3" search="true"
+                                    select-all="true" theme="success" max-height="200px"></multiselect>
+                                <span asp-validation-for="SelectedSkills" class="text-danger"></span>
+                                <small class="form-text text-muted">
+                                    <i class="bi bi-exclamation-triangle"></i> You can select a maximum of 3 skills.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Example 3: MultiSelect with OptGroups -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-3-circle"></i> MultiSelect with Grouped Options
+                                (OptGroups)</h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label asp-for="SelectedTechnologies" class="form-label"></label>
+                                <multiselect asp-for="SelectedTechnologies" asp-items="ViewBag.Technologies"
+                                    placeholder="Select technologies..." search="true" select-all="true" theme="info"
+                                    search-placeholder="Search technologies..." max-height="300px"></multiselect>
+                                <span asp-validation-for="SelectedTechnologies" class="text-danger"></span>
+                                <small class="form-text text-muted">
+                                    <i class="bi bi-layers"></i> Options are organized by category (Frontend, Backend,
+                                    Database, DevOps).
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Example 4: MultiSelect with Pre-selected Values -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-4-circle"></i> MultiSelect with Pre-selected Values
+                            </h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label asp-for="SelectedDepartments" class="form-label"></label>
+                                <multiselect asp-for="SelectedDepartments" asp-items="ViewBag.Departments"
+                                    placeholder="Select departments..." search="true" select-all="true" theme="warning"
+                                    max-height="200px"></multiselect>
+                                <span asp-validation-for="SelectedDepartments" class="text-danger"></span>
+                                <small class="form-text text-muted">
+                                    <i class="bi bi-check-circle"></i> IT and HR are pre-selected by default.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Example 5: MultiSelect with Disabled Options -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-5-circle"></i> MultiSelect with Disabled Options
+                            </h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label asp-for="SelectedLanguages" class="form-label"></label>
+                                <multiselect asp-for="SelectedLanguages" asp-items="ViewBag.Languages"
+                                    placeholder="Select languages..." search="true" select-all="true" theme="danger"
+                                    max-height="250px"></multiselect>
+                                <span asp-validation-for="SelectedLanguages" class="text-danger"></span>
+                                <small class="form-text text-muted">
+                                    <i class="bi bi-slash-circle"></i> Some languages (Russian, Japanese, Hindi) are
+                                    disabled and cannot be selected.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Example 6: MultiSelect with Localization -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-6-circle"></i> MultiSelect with Italian Localization
+                            </h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label class="form-label">Seleziona i tuoi hobby</label>
+                                <select id="hobbies-multiselect"
+                                    name="SelectedHobbies"
+                                    data-toggle="bootstrap-multiselect"
+                                    data-lang="it"
+                                    data-placeholder="Seleziona i tuoi hobby..."
+                                    data-search="true"
+                                    data-select-all="true"
+                                    data-theme="primary"
+                                    data-max-height="250px"
+                                    multiple>
+                                    <option value="reading">Lettura</option>
+                                    <option value="sports">Sport</option>
+                                    <option value="music">Musica</option>
+                                    <option value="travel">Viaggi</option>
+                                    <option value="cooking">Cucina</option>
+                                    <option value="gaming">Videogiochi</option>
+                                    <option value="photography">Fotografia</option>
+                                    <option value="art">Arte</option>
+                                </select>
+                                <small class="form-text text-muted">
+                                    <i class="bi bi-translate"></i> This example uses Italian localization. 
+                                    All UI text (Select All, Search, etc.) is automatically in Italian.
+                                    Available languages: it, es, fr, de, pt.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Comments -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-chat-text"></i> Additional Information</h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label asp-for="Comments" class="form-label"></label>
+                                <textarea asp-for="Comments" class="form-control" rows="3"
+                                    placeholder="Enter any additional comments..."></textarea>
+                                <span asp-validation-for="Comments" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Submit Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="reset" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> Submit Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="bi bi-info-circle"></i> Features Demonstrated</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Required field validation
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Maximum selection limit
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Grouped options (OptGroups)
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Pre-selected values
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Disabled options
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Localization (Italian example)
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Search functionality
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Select All / Deselect All
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Different Bootstrap themes
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Server-side validation
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success"></i> Client-side validation
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="bi bi-code-slash"></i> Usage</h5>
+                </div>
+                <div class="card-body">
+                    <p class="small mb-2"><strong>Using HtmlHelper:</strong></p>
+                    <pre class="bg-light p-2 rounded small"><code>@@Html.MultiSelectFor(
+    m => m.SelectedItems,
+    ViewBag.Items,
+    new MultiSelectConfig
+    {
+        MaxSelection = 3,
+        Theme = "primary"
+    }
+)</code></pre>
+
+                    <p class="small mb-2 mt-3"><strong>Using TagHelper:</strong></p>
+                    <pre class="bg-light p-2 rounded small"><code>&lt;multiselect 
+    asp-for="SelectedItems"
+    asp-items="ViewBag.Items"
+    max-selection="3"
+    theme="primary" /&gt;</code></pre>
+
+                    <p class="small mb-2 mt-3"><strong>With Localization:</strong></p>
+                    <pre class="bg-light p-2 rounded small"><code>&lt;!-- Load Italian language --&gt;
+&lt;script src="~/js/langs/
+    jquery-bootstrap-multiselect.it.js"&gt;
+&lt;/script&gt;
+
+&lt;!-- All instances now use Italian --&gt;
+&lt;multiselect 
+    asp-for="SelectedItems"
+    asp-items="ViewBag.Items" /&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="bi bi-gear"></i> Programmatic API</h5>
+                </div>
+                <div class="card-body">
+                    <p class="small mb-2">Test the programmatic API:</p>
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="btnGetValues">
+                            <i class="bi bi-list-check"></i> Get Selected Values
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-success" id="btnSetValues">
+                            <i class="bi bi-pencil"></i> Set Values
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" id="btnReset">
+                            <i class="bi bi-x-circle"></i> Reset
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-info" id="btnRefresh">
+                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-warning" id="btnDisable">
+                            <i class="bi bi-lock"></i> Disable
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-success" id="btnEnable">
+                            <i class="bi bi-unlock"></i> Enable
+                        </button>
+                    </div>
+                    <div id="apiResult" class="mt-3 small"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            // Programmatic API Examples
+            $('#btnGetValues').on('click', function () {
+                var values = $('#SelectedCountries').data('bs-multiselect').getSelectedValues();
+                $('#apiResult').html(
+                    '<div class="alert alert-info mb-0">' +
+                    '<strong>Selected Countries:</strong><br>' +
+                    (values.length > 0 ? values.join(', ') : 'None') +
+                    '</div>'
+                );
+            });
+
+            $('#btnSetValues').on('click', function () {
+                $('#SelectedCountries').data('bs-multiselect').setSelectedValues(['US', 'UK', 'CA']);
+                $('#apiResult').html(
+                    '<div class="alert alert-success mb-0">' +
+                    '<i class="bi bi-check-circle"></i> Set countries to: US, UK, CA' +
+                    '</div>'
+                );
+            });
+
+            $('#btnReset').on('click', function () {
+                $('#SelectedCountries').data('bs-multiselect').reset();
+                $('#apiResult').html(
+                    '<div class="alert alert-warning mb-0">' +
+                    '<i class="bi bi-x-circle"></i> Countries MultiSelect reset to empty' +
+                    '</div>'
+                );
+            });
+
+            $('#btnRefresh').on('click', function () {
+                $('#SelectedCountries').data('bs-multiselect').refresh();
+                $('#apiResult').html(
+                    '<div class="alert alert-success mb-0">' +
+                    '<i class="bi bi-arrow-clockwise"></i> MultiSelect refreshed' +
+                    '</div>'
+                );
+            });
+
+            $('#btnDisable').on('click', function () {
+                $('#SelectedCountries').data('bs-multiselect').disable();
+                $('#apiResult').html(
+                    '<div class="alert alert-warning mb-0">' +
+                    '<i class="bi bi-lock"></i> Countries MultiSelect disabled' +
+                    '</div>'
+                );
+            });
+
+            $('#btnEnable').on('click', function () {
+                $('#SelectedCountries').data('bs-multiselect').enable();
+                $('#apiResult').html(
+                    '<div class="alert alert-success mb-0">' +
+                    '<i class="bi bi-unlock"></i> Countries MultiSelect enabled' +
+                    '</div>'
+                );
+            });
+
+            // Listen to change events
+            $('[data-toggle="bootstrap-multiselect"]').on('change.bs-multiselect', function (e, data) {
+                if (data && data.selectedValues) {
+                    console.log('MultiSelect changed:', {
+                        id: $(this).attr('id'),
+                        selectedValues: data.selectedValues,
+                        totalSelected: data.selectedValues.length
+                    });
+                }
+            });
+
+            // Reset form handler - the plugin automatically handles multiselect reset
+            $('button[type="reset"]').on('click', function (e) {
+                e.preventDefault();
+
+                // Reset the form (this will trigger the plugin's automatic reset)
+                $('#exampleForm')[0].reset();
+
+                // Clear API result
+                $('#apiResult').html('');
+
+                // Clear validation errors
+                $('.text-danger').text('');
+                $('.field-validation-error').removeClass('field-validation-error').addClass('field-validation-valid');
+                $('.input-validation-error').removeClass('input-validation-error').addClass('valid');
+            });
+        });
+    </script>
+}

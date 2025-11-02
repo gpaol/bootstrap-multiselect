@@ -1,0 +1,608 @@
+﻿@{
+    ViewData["Title"] = "Bootstrap MultiSelect Demo";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-4 mb-4">
+                <i class="bi bi-check2-square"></i>
+                Bootstrap MultiSelect Plugin Demo
+            </h1>
+            <p class="lead">A powerful jQuery plugin for creating advanced multi-select dropdowns with Bootstrap 5</p>
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <!-- Example 1: Basic MultiSelect -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-1-circle-fill text-primary"></i> Basic MultiSelect</h3>
+            <p class="text-muted">Simple multi-select with pre-selected options</p>
+
+            <select id="basic-multiselect" class="form-select" data-toggle="bootstrap-multiselect"
+                data-placeholder="Select your favorite fruits..." data-width="100%">
+                <option value="apple" selected>Apple</option>
+                <option value="banana">Banana</option>
+                <option value="orange" selected>Orange</option>
+                <option value="grape">Grape</option>
+                <option value="mango">Mango</option>
+                <option value="pineapple">Pineapple</option>
+                <option value="strawberry">Strawberry</option>
+                <option value="watermelon">Watermelon</option>
+            </select>
+
+            <div class="mt-3">
+                <button class="btn btn-sm btn-info" onclick="getBasicValues()">
+                    <i class="bi bi-info-circle"></i> Get Selected Values
+                </button>
+            </div>
+            <div id="basic-output" class="alert alert-info mt-2" style="display: none;"></div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Code Example</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;select id="basic-multiselect" 
+        data-toggle="bootstrap-multiselect"
+        data-placeholder="Select your favorite fruits..."
+        data-width="100%"&gt;
+    &lt;option value="apple" selected&gt;Apple&lt;/option&gt;
+    &lt;option value="banana"&gt;Banana&lt;/option&gt;
+    &lt;option value="orange" selected&gt;Orange&lt;/option&gt;
+    ...
+&lt;/select&gt;</code></pre>
+                    <p class="small text-muted mt-2">
+                        <i class="bi bi-info-circle"></i>
+                        Apple and Orange are pre-selected by default using the <code>selected</code> attribute.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 2: With Max Selection -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-2-circle-fill text-success"></i> Max Selection Limit</h3>
+            <p class="text-muted">Limit the number of selections (max 3)</p>
+
+            <select id="max-selection-multiselect" data-toggle="bootstrap-multiselect"
+                data-placeholder="Choose up to 3 items..." data-max-selection="3" data-theme="success"
+                data-width="100%">
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">JavaScript</option>
+                <option value="typescript">TypeScript</option>
+                <option value="react">React</option>
+                <option value="vue">Vue.js</option>
+                <option value="angular">Angular</option>
+                <option value="bootstrap">Bootstrap</option>
+            </select>
+
+            <div class="alert alert-warning mt-2">
+                <i class="bi bi-exclamation-triangle"></i>
+                <small>You can select maximum 3 technologies</small>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Code Example</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;select data-toggle="bootstrap-multiselect"
+        data-max-selection="3"
+        data-theme="success"&gt;
+    ...
+&lt;/select&gt;</code></pre>
+                    <h6 class="card-title mt-3">Available Attributes</h6>
+                    <ul class="small">
+                        <li><code>data-max-selection</code>: Maximum items to select (0 = unlimited)</li>
+                        <li><code>data-theme</code>: Bootstrap theme color</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 3: With OptGroups -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-3-circle-fill text-warning"></i> With OptGroups</h3>
+            <p class="text-muted">Organized options with groups</p>
+
+            <select id="optgroup-multiselect" data-toggle="bootstrap-multiselect"
+                data-placeholder="Select programming languages..." data-theme="warning" data-search="true"
+                data-width="100%">
+                <optgroup label="Frontend">
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="typescript">TypeScript</option>
+                </optgroup>
+                <optgroup label="Backend">
+                    <option value="csharp">C#</option>
+                    <option value="python">Python</option>
+                    <option value="java">Java</option>
+                    <option value="php">PHP</option>
+                    <option value="ruby">Ruby</option>
+                </optgroup>
+                <optgroup label="Database">
+                    <option value="sql">SQL</option>
+                    <option value="mongodb">MongoDB</option>
+                    <option value="postgresql">PostgreSQL</option>
+                    <option value="redis">Redis</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Code Example</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;select data-toggle="bootstrap-multiselect"
+        data-search="true"&gt;
+    &lt;optgroup label="Frontend"&gt;
+        &lt;option value="html"&gt;HTML&lt;/option&gt;
+        ...
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Backend"&gt;
+        ...
+    &lt;/optgroup&gt;
+&lt;/select&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 4: No Select All Button -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-4-circle-fill text-danger"></i> Without Select All</h3>
+            <p class="text-muted">Hide the "Select All" buttons</p>
+
+            <select id="no-selectall-multiselect" data-toggle="bootstrap-multiselect"
+                data-placeholder="Select countries..." data-select-all="false" data-search="true" data-theme="danger"
+                data-width="100%">
+                <option value="us">United States</option>
+                <option value="uk">United Kingdom</option>
+                <option value="ca">Canada</option>
+                <option value="au">Australia</option>
+                <option value="de">Germany</option>
+                <option value="fr">France</option>
+                <option value="it">Italy</option>
+                <option value="es">Spain</option>
+                <option value="jp">Japan</option>
+                <option value="cn">China</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Code Example</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;select data-toggle="bootstrap-multiselect"
+        data-select-all="false"
+        data-search="true"&gt;
+    ...
+&lt;/select&gt;</code></pre>
+                    <h6 class="card-title mt-3">Search Feature</h6>
+                    <ul class="small">
+                        <li><code>data-search="true"</code>: Enable search box</li>
+                        <li><code>data-search="false"</code>: Disable search box</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 5: Programmatic Control -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-5-circle-fill text-info"></i> Programmatic Control</h3>
+            <p class="text-muted">Control via JavaScript</p>
+
+            <input type="text" id="programmatic-multiselect" data-toggle="bootstrap-multiselect"
+                data-placeholder="Select colors..." data-theme="info" data-width="100%">
+
+            <div class="mt-3 d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-primary" onclick="setColors(['red', 'blue'])">
+                    <i class="bi bi-palette"></i> Set Red & Blue
+                </button>
+                <button class="btn btn-sm btn-success" onclick="addColor('green')">
+                    <i class="bi bi-plus-circle"></i> Add Green
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="getColors()">
+                    <i class="bi bi-info-circle"></i> Get Values
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="clearColors()">
+                    <i class="bi bi-trash"></i> Clear All
+                </button>
+            </div>
+            <div id="color-output" class="alert alert-info mt-2" style="display: none;"></div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">JavaScript API</h6>
+                    <pre class="bg-light p-3 rounded"><code>// Initialize with data
+$('#element').bootstrapMultiSelect({
+    data: [
+        { id: 'red', text: 'Red' },
+        { id: 'blue', text: 'Blue' }
+    ]
+});
+
+// Get selected values
+var values = $('#element')
+    .bootstrapMultiSelect('getSelectedValues');
+
+// Set selected values
+$('#element')
+    .bootstrapMultiSelect('setSelectedValues', 
+        ['red', 'blue']);
+
+// Refresh
+$('#element').bootstrapMultiSelect('refresh');
+
+// Destroy
+$('#element').bootstrapMultiSelect('destroy');</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 6: With Pre-selected Values -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-6-circle-fill text-secondary"></i> Pre-selected Values</h3>
+            <p class="text-muted">Items selected by default</p>
+
+            <select id="preselected-multiselect" data-toggle="bootstrap-multiselect" data-placeholder="Your skills..."
+                data-theme="secondary" data-width="100%">
+                <option value="communication" selected>Communication</option>
+                <option value="teamwork" selected>Teamwork</option>
+                <option value="leadership">Leadership</option>
+                <option value="problem-solving">Problem Solving</option>
+                <option value="creativity">Creativity</option>
+                <option value="time-management">Time Management</option>
+                <option value="adaptability">Adaptability</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Code Example</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;select data-toggle="bootstrap-multiselect"&gt;
+    &lt;option value="communication" selected&gt;
+        Communication
+    &lt;/option&gt;
+    &lt;option value="teamwork" selected&gt;
+        Teamwork
+    &lt;/option&gt;
+    ...
+&lt;/select&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 7: Disabled Options -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-7-circle-fill text-warning"></i> Disabled Options</h3>
+            <p class="text-muted">Some options are not selectable</p>
+
+            <select id="disabled-multiselect" data-toggle="bootstrap-multiselect"
+                data-placeholder="Select available features..." data-theme="warning" data-width="100%"
+                data-select-all="true">
+                <option value="basic">Basic Features</option>
+                <option value="advanced" disabled>Advanced Features (Premium Only)</option>
+                <option value="export">Export Data</option>
+                <option value="import" disabled>Import Data (Coming Soon)</option>
+                <option value="api">API Access</option>
+                <option value="analytics" disabled>Analytics Dashboard (Premium Only)</option>
+                <option value="support">Email Support</option>
+                <option value="priority-support" disabled>Priority Support (Premium Only)</option>
+            </select>
+
+            <div class="alert alert-info mt-3">
+                <i class="bi bi-info-circle"></i>
+                <small>Disabled options cannot be selected and are displayed with reduced opacity.</small>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Code Example</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;select data-toggle="bootstrap-multiselect"&gt;
+    &lt;option value="basic"&gt;
+        Basic Features
+    &lt;/option&gt;
+    &lt;option value="advanced" disabled&gt;
+        Advanced Features (Premium Only)
+    &lt;/option&gt;
+    &lt;option value="export"&gt;
+        Export Data
+    &lt;/option&gt;
+    ...
+&lt;/select&gt;
+
+&lt;!-- Or via JavaScript --&gt;
+&lt;script&gt;
+$('#element').bootstrapMultiSelect({
+    data: [
+        { id: 'basic', text: 'Basic Features' },
+        { 
+            id: 'advanced', 
+            text: 'Advanced (Premium)', 
+            disabled: true 
+        }
+    ]
+});
+&lt;/script&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 8: Localization -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-8-circle-fill text-primary"></i> Localization (Italian Example)</h3>
+            <p class="text-muted">Multi-language support with automatic locale setting</p>
+
+            <select id="custom-text-multiselect" data-toggle="bootstrap-multiselect" data-lang="it"
+                data-placeholder="Seleziona i tuoi hobby..." data-theme="primary" data-width="100%">
+                <option value="reading">Lettura</option>
+                <option value="sports">Sport</option>
+                <option value="music">Musica</option>
+                <option value="travel">Viaggi</option>
+                <option value="cooking">Cucina</option>
+                <option value="gaming">Videogiochi</option>
+                <option value="photography">Fotografia</option>
+                <option value="art">Arte</option>
+            </select>
+
+            <div class="alert alert-success mt-3">
+                <i class="bi bi-translate"></i>
+                <small><strong>Available languages:</strong> English (en), Italian (it), Spanish (es), French (fr),
+                    German (de), Portuguese (pt). Load a language file once and all instances automatically use that
+                    language!</small>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Code Example</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;!-- Load language file for automatic localization --&gt;
+&lt;script src="~/js/langs/jquery-bootstrap-multiselect.it.js"&gt;&lt;/script&gt;
+
+&lt;!-- Now all instances automatically use Italian --&gt;
+&lt;select data-toggle="bootstrap-multiselect"&gt;
+    &lt;option value="reading"&gt;Lettura&lt;/option&gt;
+    &lt;option value="sports"&gt;Sport&lt;/option&gt;
+    ...
+&lt;/select&gt;
+
+&lt;!-- Or override specific text if needed --&gt;
+&lt;select data-toggle="bootstrap-multiselect"
+        data-placeholder="Seleziona i tuoi hobby..."&gt;
+    ...
+&lt;/select&gt;</code></pre>
+                    <h6 class="card-title mt-3">Localization</h6>
+                    <ul class="small">
+                        <li><strong>Global Language:</strong> Load a language file (it, es, fr, de, pt) and it
+                            automatically sets the language for all instances</li>
+                        <li><strong>Available Languages:</strong> Italian (it), Spanish (es), French (fr), German (de),
+                            Portuguese (pt)</li>
+                        <li><strong>Custom Override:</strong> You can still override individual text with data
+                            attributes</li>
+                        <li>See <code>wwwroot/js/langs/</code> for all language files</li>
+                    </ul>
+                    <h6 class="card-title mt-3">Manual Text Customization</h6>
+                    <ul class="small">
+                        <li><code>data-select-all-text</code>: "Select All" button text</li>
+                        <li><code>data-deselect-all-text</code>: "Deselect All" button text</li>
+                        <li><code>data-search-placeholder</code>: Search input placeholder</li>
+                        <li><code>data-items-selected-text</code>: Text for "4+ items selected"</li>
+                        <li><code>data-no-results-text</code>: No results message</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Available Options Table -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4"><i class="bi bi-gear-fill"></i> Available Configuration Options</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>data-placeholder</code></td>
+                            <td>string</td>
+                            <td>"Select items..."</td>
+                            <td>Placeholder text displayed in the button</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-max-selection</code></td>
+                            <td>number</td>
+                            <td>0</td>
+                            <td>Maximum number of items that can be selected (0 = unlimited)</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-select-all</code></td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Show/hide "Select All" and "Deselect All" buttons</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-select-all-text</code></td>
+                            <td>string</td>
+                            <td>"Select All"</td>
+                            <td>Custom text for the "Select All" button</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-deselect-all-text</code></td>
+                            <td>string</td>
+                            <td>"Deselect All"</td>
+                            <td>Custom text for the "Deselect All" button</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-search</code></td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Enable/disable search functionality</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-search-placeholder</code></td>
+                            <td>string</td>
+                            <td>"Search..."</td>
+                            <td>Placeholder text for the search input</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-width</code></td>
+                            <td>string</td>
+                            <td>"100%"</td>
+                            <td>Width of the dropdown (e.g., "250px", "50%")</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-theme</code></td>
+                            <td>string</td>
+                            <td>"primary"</td>
+                            <td>Bootstrap theme: primary, secondary, success, danger, warning, info, light, dark</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-button-class</code></td>
+                            <td>string</td>
+                            <td>"btn-outline-secondary"</td>
+                            <td>Custom CSS class for the button</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-dropdown-class</code></td>
+                            <td>string</td>
+                            <td>""</td>
+                            <td>Custom CSS class for the dropdown menu</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-close-on-select</code></td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Close the dropdown when an item is selected</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-no-results-text</code></td>
+                            <td>string</td>
+                            <td>"No results found"</td>
+                            <td>Text displayed when search returns no results</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-max-height</code></td>
+                            <td>string</td>
+                            <td>"300px"</td>
+                            <td>Maximum height of the dropdown menu</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-items-selected-text</code></td>
+                            <td>string</td>
+                            <td>"items selected"</td>
+                            <td>Text shown when 4+ items are selected (e.g., "4 items selected"). Perfect for
+                                internationalization (e.g., "elementi selezionati")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Documentation -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4"><i class="bi bi-lightning-fill"></i> Events</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">change.bs-multiselect</h5>
+                    <p class="card-text">Triggered when the selection changes</p>
+                    <pre class="bg-light p-3 rounded"><code>$('#myselect').on('change.bs-multiselect', function(e, selectedValues) {
+    console.log('Selected values:', selectedValues);
+    // Do something with the selected values
+});</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Example 1: Basic MultiSelect - Get Values
+        function getBasicValues() {
+            var values = $('#basic-multiselect').bootstrapMultiSelect('getSelectedValues');
+            $('#basic-output').html('<strong>Selected Values:</strong> ' + JSON.stringify(values)).show();
+        }
+
+        // Example 5: Programmatic Control
+        // Initialize with custom data
+        $(document).ready(function () {
+            $('#programmatic-multiselect').bootstrapMultiSelect({
+                data: [
+                    { id: 'red', text: 'Red' },
+                    { id: 'blue', text: 'Blue' },
+                    { id: 'green', text: 'Green' },
+                    { id: 'yellow', text: 'Yellow' },
+                    { id: 'purple', text: 'Purple' },
+                    { id: 'orange', text: 'Orange' },
+                    { id: 'pink', text: 'Pink' },
+                    { id: 'black', text: 'Black' },
+                    { id: 'white', text: 'White' }
+                ]
+            });
+
+            // Listen to change events on all multiselects
+            $('[data-toggle="bootstrap-multiselect"]').on('change.bs-multiselect', function (e, selectedValues) {
+                console.log('Selection changed:', selectedValues);
+            });
+        });
+
+        function setColors(colors) {
+            $('#programmatic-multiselect').bootstrapMultiSelect('setSelectedValues', colors);
+            $('#color-output').html('<strong>Set colors:</strong> ' + JSON.stringify(colors)).show();
+        }
+
+        function addColor(color) {
+            var currentValues = $('#programmatic-multiselect').bootstrapMultiSelect('getSelectedValues');
+            if (!currentValues.includes(color)) {
+                currentValues.push(color);
+                $('#programmatic-multiselect').bootstrapMultiSelect('setSelectedValues', currentValues);
+                $('#color-output').html('<strong>Added color:</strong> ' + color).show();
+            } else {
+                $('#color-output').html('<strong>Color already selected:</strong> ' + color).show();
+            }
+        }
+
+        function getColors() {
+            var values = $('#programmatic-multiselect').bootstrapMultiSelect('getSelectedValues');
+            $('#color-output').html('<strong>Current colors:</strong> ' + JSON.stringify(values)).show();
+        }
+
+        function clearColors() {
+            $('#programmatic-multiselect').bootstrapMultiSelect('setSelectedValues', []);
+            $('#color-output').html('<strong>Cleared all colors</strong>').show();
+        }
+    </script>
+}

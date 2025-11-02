@@ -1,0 +1,55 @@
+{
+  "name": "bootstrap-multiselect",
+  "version": "1.1.0",
+  "description": "Bootstrap 5 MultiSelect component with search, filtering, grouped options, and comprehensive localization support",
+  "main": "dist/js/bootstrap-multiselect.js",
+  "style": "dist/css/bootstrap-multiselect.css",
+  "files": [
+    "dist/css/**/*",
+    "dist/js/**/*",
+    "dist/langs/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "echo 'Build completed'",
+    "test": "echo 'No tests yet'"
+  },
+  "keywords": [
+    "bootstrap",
+    "bootstrap5",
+    "multiselect",
+    "multi-select",
+    "dropdown",
+    "select",
+    "jquery",
+    "jquery-plugin",
+    "form",
+    "input",
+    "ui",
+    "component",
+    "localization",
+    "i18n",
+    "search",
+    "filter"
+  ],
+  "author": "Paolo Gaetano",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gpaol/bootstrap-multiselect.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gpaol/bootstrap-multiselect/issues"
+  },
+  "homepage": "https://github.com/gpaol/bootstrap-multiselect#readme",
+  "peerDependencies": {
+    "bootstrap": "^5.3.0",
+    "jquery": "^3.7.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}

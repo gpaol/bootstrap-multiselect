@@ -1,0 +1,211 @@
+@model BootstrapMultiSelectExamples.Models.ExampleViewModel
+@{
+    ViewData["Title"] = "Submission Successful";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-success">
+                <div class="card-header bg-success text-white text-center">
+                    <h3 class="mb-0">
+                        <i class="bi bi-check-circle-fill"></i> Form Submitted Successfully!
+                    </h3>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            <i class="bi bi-info-circle-fill"></i> @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <h5 class="text-primary mb-3">
+                        <i class="bi bi-file-earmark-text"></i> Submitted Data Summary
+                    </h5>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-person"></i> Name:
+                                </label>
+                                <p class="form-control-plaintext">@Model.Name</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-envelope"></i> Email:
+                                </label>
+                                <p class="form-control-plaintext">@Model.Email</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-globe"></i> Selected Countries:
+                                </label>
+                                @if (Model.SelectedCountries != null && Model.SelectedCountries.Any())
+                                {
+                                    <div class="d-flex flex-wrap gap-2">
+                                        @foreach (var country in Model.SelectedCountries)
+                                        {
+                                            var countries = ViewBag.Countries as List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>;
+                                            var countryName = countries?.FirstOrDefault(c => c.Value == country)?.Text ?? country;
+                                            <span class="badge bg-primary">@countryName</span>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">None selected</p>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-tools"></i> Selected Skills:
+                                </label>
+                                @if (Model.SelectedSkills != null && Model.SelectedSkills.Any())
+                                {
+                                    <div class="d-flex flex-wrap gap-2">
+                                        @foreach (var skill in Model.SelectedSkills)
+                                        {
+                                            var skills = ViewBag.Skills as List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>;
+                                            var skillName = skills?.FirstOrDefault(s => s.Value == skill)?.Text ?? skill;
+                                            <span class="badge bg-success">@skillName</span>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">None selected</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-cpu"></i> Selected Technologies:
+                                </label>
+                                @if (Model.SelectedTechnologies != null && Model.SelectedTechnologies.Any())
+                                {
+                                    <div class="d-flex flex-wrap gap-2">
+                                        @foreach (var tech in Model.SelectedTechnologies)
+                                        {
+                                            var technologies = ViewBag.Technologies as List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>;
+                                            var techName = technologies?.FirstOrDefault(t => t.Value == tech)?.Text ?? tech;
+                                            <span class="badge bg-info">@techName</span>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">None selected</p>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-building"></i> Selected Departments:
+                                </label>
+                                @if (Model.SelectedDepartments != null && Model.SelectedDepartments.Any())
+                                {
+                                    <div class="d-flex flex-wrap gap-2">
+                                        @foreach (var dept in Model.SelectedDepartments)
+                                        {
+                                            var departments = ViewBag.Departments as List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>;
+                                            var deptName = departments?.FirstOrDefault(d => d.Value == dept)?.Text ?? dept;
+                                            <span class="badge bg-warning text-dark">@deptName</span>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">None selected</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">
+                            <i class="bi bi-translate"></i> Selected Languages:
+                        </label>
+                        @if (Model.SelectedLanguages != null && Model.SelectedLanguages.Any())
+                        {
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach (var lang in Model.SelectedLanguages)
+                                {
+                                    var languages = ViewBag.Languages as List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>;
+                                    var langName = languages?.FirstOrDefault(l => l.Value == lang)?.Text ?? lang;
+                                    <span class="badge bg-danger">@langName</span>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">None selected</p>
+                        }
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Comments))
+                    {
+                        <hr />
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-chat-text"></i> Comments:
+                            </label>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <p class="mb-0">@Model.Comments</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <hr />
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                        <a asp-action="Index" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-left"></i> Submit Another Form
+                        </a>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-house"></i> Go to Home
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    <small>
+                        <i class="bi bi-calendar-check"></i> Submitted on @DateTime.Now.ToString("MMMM dd, yyyy 'at' h:mm tt")
+                    </small>
+                </div>
+            </div>
+
+            <!-- JSON Data Display -->
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-code-square"></i> Raw JSON Data
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <pre class="bg-light p-3 rounded"><code>@System.Text.Json.JsonSerializer.Serialize(Model, new System.Text.Json.JsonSerializerOptions { WriteIndented = true })</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

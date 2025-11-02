@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <!-- Multi-targeting for .NET 8 and 9 -->
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    
+    <!-- NuGet Package Metadata -->
+    <PackageId>BootstrapMultiSelect.MVC</PackageId>
+    <Version>1.1.0</Version>
+    <Authors>Paolo Gaetano</Authors>
+    <Company>Paolo Gaetano</Company>
+    <Product>Bootstrap MultiSelect for ASP.NET Core</Product>
+    <Description>Bootstrap 5 MultiSelect component for ASP.NET Core with TagHelper and HtmlHelper support. Includes embedded CSS/JS files, localization support (6 languages), and comprehensive form validation integration.</Description>
+    <PackageTags>bootstrap;bootstrap5;multiselect;multi-select;aspnetcore;taghelper;htmlhelper;jquery;mvc;razor;form;validation;localization;i18n</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/gpaol/bootstrap-multiselect</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/gpaol/bootstrap-multiselect</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <!-- <PackageIcon>icon.png</PackageIcon> -->
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright © 2025 Paolo Gaetano</Copyright>
+    <PackageReleaseNotes>See CHANGELOG.md for release notes</PackageReleaseNotes>
+    
+    <!-- Build Settings -->
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    
+    <!-- Embed static files -->
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    <EnableDefaultContentItems>true</EnableDefaultContentItems>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <!-- ASP.NET Core Dependencies -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <!-- Static Files - Embedded as Resources and included in NuGet -->
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\**\*" />
+    <None Include="wwwroot\**\*" Pack="true" PackagePath="contentFiles\any\any\wwwroot\lib\bootstrap-multiselect\" />
+  </ItemGroup>
+
+  <!-- Package Assets -->
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <!-- <None Include="icon.png" Pack="true" PackagePath="\" Condition="Exists('icon.png')" /> -->
+    <None Include="..\..\CHANGELOG.md" Pack="true" PackagePath="\" Link="CHANGELOG.md" />
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\" Link="LICENSE.txt" />
+  </ItemGroup>
+
+  <!-- Build Events -->
+  <Target Name="CopyStaticFiles" AfterTargets="Build">
+    <Message Text="Static files will be embedded in the assembly and copied to contentFiles in NuGet package" Importance="high" />
+  </Target>
+
+</Project>
