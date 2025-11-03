@@ -4,23 +4,70 @@ A .NET Core MVC library providing TagHelper and HtmlHelper extensions for the Bo
 
 ## Installation
 
-1. Add reference to `BootstrapMultiSelect.MVC.dll` in your ASP.NET Core MVC project
-2. Include the required CSS and JavaScript files in your layout:
+Install the package via NuGet:
+
+```bash
+dotnet add package BootstrapMultiSelect.MVC
+```
+
+Or via Package Manager Console:
+
+```powershell
+Install-Package BootstrapMultiSelect.MVC
+```
+
+### How It Works - Static Web Assets
+
+After installation, all CSS and JavaScript files are **automatically available** via ASP.NET Core's **Static Web Assets** feature.
+
+**Important:** Files are **NOT physically copied** to your `wwwroot` folder. They are:
+
+- ✅ Served directly from the NuGet package cache during development
+- ✅ Available immediately at `~/lib/bootstrap-multiselect/` URLs
+- ✅ Automatically included in publish output
+- ✅ Removed automatically when you uninstall the package
+
+This is the **same behavior** as Bootstrap, jQuery, and other standard NuGet packages.
+
+### Usage in Your Application
+
+Simply add the script and style references in your `_Layout.cshtml`:
 
 ```html
-<!-- CSS -->
-<link rel="stylesheet" href="~/css/jquery-bootstrap-multiselect.css" />
-
-<!-- JavaScript -->
-<script src="~/js/jquery-bootstrap-multiselect.js"></script>
-
-<!-- Optional: Localization file (for non-English languages) -->
-<script src="~/js/locales/jquery-bootstrap-multiselect.it.js"></script>
-<script>
-    // Set global locale for all multiselect instances
-    $.fn.bootstrapMultiSelect.locale = 'it';
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap MultiSelect CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap-multiselect/css/bootstrap-multiselect.min.css" />
+</head>
+<body>
+    <!-- Your content -->
+    
+    <!-- Required: jQuery and Bootstrap -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Bootstrap MultiSelect JS -->
+    <script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
+    
+    <!-- Optional: Language file -->
+    <script src="~/lib/bootstrap-multiselect/langs/jquery-bootstrap-multiselect.it.min.js"></script>
+</body>
+</html>
 ```
+
+**That's it!** The files are available immediately - no build required, no manual copying needed.
+
+### Troubleshooting
+
+**Files not found (404)?**
+
+1. Verify package is installed: `dotnet list package`
+2. Ensure `app.UseStaticFiles()` is in your `Program.cs`
+3. Restart your application
+4. Check the URL path is correct: `~/lib/bootstrap-multiselect/...`
+
+**Note:** You will **NOT** see a `wwwroot/lib/bootstrap-multiselect` folder in your project - this is normal and correct!
 
 ## Localization
 
@@ -35,17 +82,24 @@ The library supports multiple languages through lang files. Available languages:
 
 ### Global Localization
 
-Load the lang file and it will automatically set the global lang:
+To set a language globally for all multiselect instances, you must use the `lang` property:
 
 ```html
 <!-- Load plugin -->
-<script src="~/js/jquery-bootstrap-multiselect.js"></script>
+<script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
 
-<!-- Load Italian locale - automatically sets locale to 'it' -->
-<script src="~/js/locales/jquery-bootstrap-multiselect.it.js"></script>
+<!-- Load Italian translations (optional but recommended) -->
+<script src="~/lib/bootstrap-multiselect/langs/jquery-bootstrap-multiselect.it.min.js"></script>
+
+<!-- Set Italian as global default -->
+<script>
+    $.fn.bootstrapMultiSelect.lang = 'it';
+</script>
 ```
 
 Now all multiselect instances will use Italian text automatically.
+
+**Note:** Loading the language file provides the translations, but you still need to set `$.fn.bootstrapMultiSelect.lang = 'it'` to apply them globally.
 
 ### Dynamic Locale Based on Culture
 
@@ -57,12 +111,17 @@ In your `_Layout.cshtml`:
     var culture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 }
 
-<script src="~/js/jquery-bootstrap-multiselect.js"></script>
+<script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
 
 @if (culture != "en")
 {
     <!-- Language is automatically set when the file is loaded -->
-    <script src="~/js/langs/jquery-bootstrap-multiselect.@(culture).js"></script>
+    <script src="~/lib/bootstrap-multiselect/langs/jquery-bootstrap-multiselect.@(culture).min.js"></script>
+
+    <!-- Set a global default -->
+    <script>
+        $.fn.bootstrapMultiSelect.lang = '@(culture)';
+    </script>
 }
 ```
 
@@ -99,15 +158,13 @@ When determining which text to display:
 
 ### Available Language Files
 
-Language files are located in: `wwwroot/js/langs/`
+Language files are automatically available via Static Web Assets at: `~/lib/bootstrap-multiselect/langs/`
 
-- `jquery-bootstrap-multiselect.it.js` - Italian
-- `jquery-bootstrap-multiselect.es.js` - Spanish
-- `jquery-bootstrap-multiselect.fr.js` - French
-- `jquery-bootstrap-multiselect.de.js` - German
-- `jquery-bootstrap-multiselect.pt.js` - Portuguese
-
-See the [langs README](../JQueryMultiSelect/wwwroot/js/langs/README.md) for more details.
+- `jquery-bootstrap-multiselect.it.min.js` - Italian
+- `jquery-bootstrap-multiselect.es.min.js` - Spanish
+- `jquery-bootstrap-multiselect.fr.min.js` - French
+- `jquery-bootstrap-multiselect.de.min.js` - German
+- `jquery-bootstrap-multiselect.pt.min.js` - Portuguese
 
 ## Usage
 
@@ -339,8 +396,8 @@ var model = new MyViewModel
 
 ```html
 <!-- _Layout.cshtml -->
-<script src="~/js/jquery-bootstrap-multiselect.js"></script>
-<script src="~/js/langs/jquery-bootstrap-multiselect.it.js"></script>
+<script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
+<script src="~/lib/bootstrap-multiselect/langs/jquery-bootstrap-multiselect.it.min.js"></script>
 <!-- Italian is now automatically set as the global language -->
 
 <!-- Now all multiselect instances in all views will use Italian -->
@@ -354,12 +411,12 @@ var model = new MyViewModel
     var culture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 }
 
-<script src="~/js/jquery-bootstrap-multiselect.js"></script>
+<script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
 
 @if (culture != "en")
 {
     <!-- Automatically sets the language when loaded -->
-    <script src="~/js/langs/jquery-bootstrap-multiselect.@(culture).js"></script>
+    <script src="~/lib/bootstrap-multiselect/langs/jquery-bootstrap-multiselect.@(culture).min.js"></script>
 }
 
 <!-- Automatically uses user's language (it, es, fr, de, pt) -->

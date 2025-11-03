@@ -30,10 +30,9 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     
-    <!-- Embed static files -->
+    <!-- Static Web Assets Configuration -->
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-    <EnableDefaultContentItems>true</EnableDefaultContentItems>
-    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <StaticWebAssetBasePath>lib/bootstrap-multiselect</StaticWebAssetBasePath>
   </PropertyGroup>
 
   <!-- ASP.NET Core Dependencies -->
@@ -41,10 +40,11 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <!-- Static Files - Embedded as Resources and included in NuGet -->
+  <!-- Static Web Assets - Automatically served without physical copy -->
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\**\*" />
-    <None Include="wwwroot\**\*" Pack="true" PackagePath="contentFiles\any\any\wwwroot\lib\bootstrap-multiselect" />
+    <!-- wwwroot files are automatically included as static web assets by the Razor SDK -->
+    <!-- They will be served at ~/lib/bootstrap-multiselect/ WITHOUT being copied to the consuming project -->
+    <!-- This is the standard approach used by Bootstrap, jQuery, and other NuGet packages -->
   </ItemGroup>
 
   <!-- Package Assets -->
@@ -56,8 +56,8 @@
   </ItemGroup>
 
   <!-- Build Events -->
-  <Target Name="CopyStaticFiles" AfterTargets="Build">
-    <Message Text="Static files will be embedded in the assembly and copied to contentFiles in NuGet package" Importance="high" />
+  <Target Name="DisplayStaticWebAssets" AfterTargets="Build">
+    <Message Text="Static web assets are available at ~/lib/bootstrap-multiselect/ (served from package, no physical copy)" Importance="high" />
   </Target>
 
 </Project>
