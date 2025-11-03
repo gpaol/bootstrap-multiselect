@@ -44,15 +44,15 @@
   <!-- Static Files - Embedded as Resources and included in NuGet -->
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\**\*" />
-    <None Include="wwwroot\**\*" Pack="true" PackagePath="contentFiles\any\any\wwwroot\lib\bootstrap-multiselect\" />
+    <None Include="wwwroot\**\*" Pack="true" PackagePath="contentFiles\any\any\wwwroot\lib\bootstrap-multiselect" />
   </ItemGroup>
 
   <!-- Package Assets -->
   <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath="\" />
-    <!-- <None Include="icon.png" Pack="true" PackagePath="\" Condition="Exists('icon.png')" /> -->
-    <None Include="..\..\CHANGELOG.md" Pack="true" PackagePath="\" Link="CHANGELOG.md" />
-    <None Include="..\..\LICENSE" Pack="true" PackagePath="\" Link="LICENSE.txt" />
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <!-- <None Include="icon.png" Pack="true" PackagePath="" Condition="Exists('icon.png')" /> -->
+    <None Include="..\..\CHANGELOG.md" Pack="true" PackagePath="" Link="CHANGELOG.md" />
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="" Link="LICENSE.txt" />
   </ItemGroup>
 
   <!-- Build Events -->
