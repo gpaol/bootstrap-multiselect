@@ -13,10 +13,10 @@
  *    All multiselect instances will now use Italian by default.
  * 
  * 3. You can override the language per instance if needed:
- *    $('#mySelect').bootstrapMultiSelect({ lang: 'en' });
+ *    $('#mySelect').bootstrapMultiSelect({ lang: 'it' });
  * 
  * @author Paolo Gaetano
- * @version 1.0.0
+ * @version 1.1.0
  * @license MIT
  */
 

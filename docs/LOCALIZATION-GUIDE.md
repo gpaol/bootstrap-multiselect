@@ -6,8 +6,7 @@ This guide explains how to use the localization feature in Bootstrap MultiSelect
 
 **Important Terminology**:
 
-- **JavaScript Plugin** uses `lang` (e.g., `data-lang="it"`, `$.fn.bootstrapMultiSelect.lang`)
-- **ASP.NET Core MVC** uses `locale` (e.g., `locale="it"`, `Locale = "it"`)
+- **Both JavaScript Plugin and ASP.NET Core MVC** use `lang` (e.g., `data-lang="it"`, `lang="it"`, `Lang = "it"`)
 
 Language files **register** translations but do NOT automatically change the global language. This gives you maximum flexibility to use English as default and apply other languages selectively, or set a global default manually.
 
@@ -80,7 +79,7 @@ Language files **register** translations but do NOT automatically change the glo
 ```cshtml
 <multiselect asp-for="SelectedItems" 
              asp-items="ViewBag.Items"
-             locale="it" />
+             lang="it" />
 ```
 
 **HtmlHelper:**
@@ -88,7 +87,7 @@ Language files **register** translations but do NOT automatically change the glo
 ```csharp
 @Html.MultiSelectFor(m => m.SelectedItems, ViewBag.Items, new MultiSelectConfig
 {
-    Locale = "it"
+    Lang = "it"
 })
 ```
 
@@ -222,7 +221,7 @@ app.UseRequestLocalization();
 
 Now all multiselect instances automatically use the user's language!
 
-### 4. ASP.NET Core - TagHelper with Locale
+### 4. ASP.NET Core - TagHelper with Language
 
 ```cshtml
 @addTagHelper *, BootstrapMultiSelect.MVC
@@ -230,19 +229,19 @@ Now all multiselect instances automatically use the user's language!
 <!-- Italian -->
 <multiselect asp-for="SelectedItems" 
              asp-items="ViewBag.Items"
-             locale="it"
+             lang="it"
              search="true"
              select-all="true" />
 
 <!-- Spanish -->
 <multiselect asp-for="SelectedOtherItems" 
              asp-items="ViewBag.OtherItems"
-             locale="es"
+             lang="es"
              search="true"
              select-all="true" />
 ```
 
-### 5. ASP.NET Core - HtmlHelper with Locale
+### 5. ASP.NET Core - HtmlHelper with Language
 
 ```csharp
 @using BootstrapMultiSelect.MVC.HtmlHelpers
@@ -250,7 +249,7 @@ Now all multiselect instances automatically use the user's language!
 
 @Html.MultiSelectFor(m => m.SelectedItems, ViewBag.Items, new MultiSelectConfig
 {
-    Locale = "it",
+    Lang = "it",
     Search = true,
     SelectAll = true,
     Theme = "primary"
@@ -259,7 +258,7 @@ Now all multiselect instances automatically use the user's language!
 
 ## 🔤 Translated Texts
 
-Each locale file translates these 6 text strings:
+Each language file translates these 6 text strings:
 
 | Key | English | Italian | Spanish | French | German | Portuguese |
 |-----|---------|---------|---------|--------|--------|------------|
@@ -295,17 +294,17 @@ When determining which text to display, the plugin follows this priority order (
 ### Example
 
 ```javascript
-// Load Italian locale
+// Load Italian language file first
 $.fn.bootstrapMultiSelect.lang = 'it';
 
 $('#mySelect').bootstrapMultiSelect({
-    placeholder: 'Custom placeholder' // This overrides Italian locale
+    placeholder: 'Custom placeholder' // This overrides Italian language
 });
 
 // Result:
 // - placeholder = "Custom placeholder" (from option)
-// - searchPlaceholder = "Cerca..." (from Italian locale)
-// - selectAllText = "Seleziona Tutti" (from Italian locale)
+// - searchPlaceholder = "Cerca..." (from Italian language)
+// - selectAllText = "Seleziona Tutti" (from Italian language)
 // - etc.
 ```
 
@@ -360,11 +359,11 @@ Updated files:
 ```text
 BootstrapMultiSelect.MVC/
 ├── Models/
-│   └── MultiSelectConfig.cs (added Locale property)
+│   └── MultiSelectConfig.cs (added Lang property)
 ├── TagHelpers/
-│   └── MultiSelectTagHelper.cs (added locale attribute support)
+│   └── MultiSelectTagHelper.cs (added lang attribute support)
 ├── HtmlHelpers/
-│   └── MultiSelectHtmlHelper.cs (added locale support)
+│   └── MultiSelectHtmlHelper.cs (added lang support)
 └── README.md (updated with localization docs)
 ```
 
@@ -411,31 +410,31 @@ Each user sees their own language based on browser/culture settings.
         <h4>Italian Section</h4>
         <multiselect asp-for="ItalianItems" 
                      asp-items="ViewBag.ItalianItems"
-                     locale="it" />
+                     lang="it" />
     </div>
     
     <div class="col-md-6">
         <h4>Spanish Section</h4>
         <multiselect asp-for="SpanishItems" 
                      asp-items="ViewBag.SpanishItems"
-                     locale="es" />
+                     lang="es" />
     </div>
 </div>
 ```
 
-### Scenario 4: Custom Text with Locale
+### Scenario 4: Custom Text with Language
 
 ```cshtml
-<!-- Use Italian locale but override placeholder -->
+<!-- Use Italian language but override placeholder -->
 <multiselect asp-for="SelectedItems" 
              asp-items="ViewBag.Items"
-             locale="it"
+             lang="it"
              placeholder="Scegli le tue preferenze..." />
 
 <!-- Result:
      - placeholder: "Scegli le tue preferenze..." (custom)
-     - searchPlaceholder: "Cerca..." (from Italian locale)
-     - selectAllText: "Seleziona Tutti" (from Italian locale)
+     - searchPlaceholder: "Cerca..." (from Italian language)
+     - selectAllText: "Seleziona Tutti" (from Italian language)
      - etc.
 -->
 ```
@@ -527,10 +526,10 @@ console.log(options.searchPlaceholder); // "Cerca..."
 - Global: `$.fn.bootstrapMultiSelect.lang = 'it'`
 - Per-instance: `{ lang: 'it' }` or `data-lang="it"`
 
-✅ **ASP.NET Core MVC uses `locale`**:
+✅ **ASP.NET Core MVC uses `lang`**:
 
-- TagHelper: `locale="it"` attribute
-- HtmlHelper: `Locale = "it"` property
+- TagHelper: `lang="it"` attribute
+- HtmlHelper: `Lang = "it"` property
 
 ✅ **Automatic culture detection** in ASP.NET Core
 

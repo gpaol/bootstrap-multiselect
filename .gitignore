@@ -217,3 +217,7 @@ samples/AspNetCore/Views/Home/Index.cshtml.bak
 PUBLISHING-CHECKLIST.md
 PUBLISHING-COMMANDS.md
 PUBLISHING-GUIDE.md
+
+# Internal development/setup files
+src/BootstrapMultiSelect.Plugin/SETUP-SUMMARY.md
+src/BootstrapMultiSelect.Plugin/GITHUB-ACTIONS.md

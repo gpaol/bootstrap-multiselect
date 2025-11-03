@@ -1,0 +1,23 @@
+# Build scripts
+build.ps1
+build.sh
+build.bat
+
+# Source files (npm package should only include dist/)
+src/
+
+# Development files
+.vscode/
+.vs/
+*.suo
+*.user
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git files
+.git/
+.gitignore
+.gitattributes

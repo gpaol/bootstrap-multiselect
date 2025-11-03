@@ -105,8 +105,8 @@ namespace BootstrapMultiSelect.MVC.HtmlHelpers
             sb.Append($"data-max-height=\"{config.MaxHeight}\" ");
             sb.Append($"data-items-selected-text=\"{config.ItemsSelectedText}\" ");
 
-            if (!string.IsNullOrEmpty(config.Locale))
-                sb.Append($"data-locale=\"{config.Locale}\" ");
+            if (!string.IsNullOrEmpty(config.Lang))
+                sb.Append($"data-lang=\"{config.Lang}\" ");
 
             sb.AppendLine(">");
 
@@ -203,8 +203,8 @@ namespace BootstrapMultiSelect.MVC.HtmlHelpers
             sb.Append($"data-max-height=\"{config.MaxHeight}\" ");
             sb.Append($"data-items-selected-text=\"{config.ItemsSelectedText}\" ");
 
-            if (!string.IsNullOrEmpty(config.Locale))
-                sb.Append($"data-locale=\"{config.Locale}\" ");
+            if (!string.IsNullOrEmpty(config.Lang))
+                sb.Append($"data-lang=\"{config.Lang}\" ");
 
             sb.AppendLine(">");
 

@@ -81,13 +81,13 @@ namespace BootstrapMultiSelect.MVC.Models
         public string ItemsSelectedText { get; set; } = "items selected";
 
         /// <summary>
-        /// Gets or sets the locale code for localization (e.g., "it", "es", "fr", "de", "pt")
+        /// Gets or sets the language code for localization (e.g., "it", "es", "fr", "de", "pt")
         /// </summary>
         /// <remarks>
-        /// When set, the plugin will use the corresponding locale file for all text strings.
-        /// Available locales: en (default), it, es, fr, de, pt
-        /// Requires the locale file to be loaded: ~/js/locales/jquery-bootstrap-multiselect.{locale}.js
+        /// When set, the plugin will use the corresponding language file for all text strings.
+        /// Available languages: en (default), it, es, fr, de, pt
+        /// Requires the language file to be loaded: ~/js/langs/jquery-bootstrap-multiselect.{lang}.js
         /// </remarks>
-        public string? Locale { get; set; }
+        public string? Lang { get; set; }
     }
 }

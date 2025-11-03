@@ -130,15 +130,15 @@ namespace BootstrapMultiSelect.MVC.TagHelpers
         public string ItemsSelectedText { get; set; } = "items selected";
 
         /// <summary>
-        /// Gets or sets the locale code for localization (e.g., "it", "es", "fr", "de", "pt")
+        /// Gets or sets the language code for localization (e.g., "it", "es", "fr", "de", "pt")
         /// </summary>
         /// <remarks>
-        /// When set, the plugin will use the corresponding locale file for all text strings.
-        /// Available locales: en (default), it, es, fr, de, pt
-        /// Requires the locale file to be loaded: ~/js/locales/jquery-bootstrap-multiselect.{locale}.js
+        /// When set, the plugin will use the corresponding language file for all text strings.
+        /// Available languages: en (default), it, es, fr, de, pt
+        /// Requires the language file to be loaded: ~/js/langs/jquery-bootstrap-multiselect.{lang}.js
         /// </remarks>
-        [HtmlAttributeName("locale")]
-        public string? Locale { get; set; }
+        [HtmlAttributeName("lang")]
+        public string? Lang { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiSelectTagHelper"/> class
@@ -281,8 +281,8 @@ namespace BootstrapMultiSelect.MVC.TagHelpers
             if (!string.IsNullOrEmpty(ItemsSelectedText))
                 output.Attributes.SetAttribute("data-items-selected-text", ItemsSelectedText);
 
-            if (!string.IsNullOrEmpty(Locale))
-                output.Attributes.SetAttribute("data-locale", Locale);
+            if (!string.IsNullOrEmpty(Lang))
+                output.Attributes.SetAttribute("data-lang", Lang);
 
             // Build options
             if (Items != null)

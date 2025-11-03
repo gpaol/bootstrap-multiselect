@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to publish (e.g., 1.1.0)'
+        description: "Version to publish (e.g., 1.1.0)"
         required: true
         type: string
 
@@ -14,48 +14,60 @@ jobs:
   publish-npm:
     name: Publish npm Package
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18.x'
-        registry-url: 'https://registry.npmjs.org'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
 
-    - name: Verify files exist
-      run: |
-        cd src/BootstrapMultiSelect.Plugin
-        ls -la dist/
+      - name: Build plugin package
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          chmod +x build.sh
+          bash build.sh
 
-    - name: Update version in package.json
-      if: github.event_name == 'release'
-      run: |
-        cd src/BootstrapMultiSelect.Plugin
-        VERSION=${GITHUB_REF#refs/tags/v}
-        npm version $VERSION --no-git-tag-version
+      - name: Verify files exist
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          ls -la dist/
+          echo "--- JavaScript files ---"
+          ls -la dist/js/
+          echo "--- CSS files ---"
+          ls -la dist/css/
+          echo "--- Language files ---"
+          ls -la dist/langs/
 
-    - name: Publish to npm
-      run: |
-        cd src/BootstrapMultiSelect.Plugin
-        npm publish --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Update version in package.json
+        if: github.event_name == 'release'
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          VERSION=${GITHUB_REF#refs/tags/v}
+          npm version $VERSION --no-git-tag-version
 
-    - name: Create npm package artifact
-      run: |
-        cd src/BootstrapMultiSelect.Plugin
-        npm pack
+      - name: Publish to npm
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-    - name: Upload to GitHub Release
-      if: github.event_name == 'release'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: src/BootstrapMultiSelect.Plugin/bootstrap-multiselect-${{ github.event.release.tag_name }}.tgz
-        asset_name: bootstrap-multiselect-${{ github.event.release.tag_name }}.tgz
-        asset_content_type: application/gzip
+      - name: Create npm package artifact
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          npm pack
+
+      - name: Upload to GitHub Release
+        if: github.event_name == 'release'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: src/BootstrapMultiSelect.Plugin/bootstrap-multiselect-${{ github.event.release.tag_name }}.tgz
+          asset_name: bootstrap-multiselect-${{ github.event.release.tag_name }}.tgz
+          asset_content_type: application/gzip

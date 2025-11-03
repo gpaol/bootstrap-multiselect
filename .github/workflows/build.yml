@@ -2,9 +2,9 @@ name: Build and Test
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 jobs:
   build:
@@ -13,62 +13,80 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        dotnet-version: ['8.0.x', '9.0.x']
+        dotnet-version: ["8.0.x", "9.0.x"]
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Setup .NET ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
 
-    - name: Restore dependencies
-      run: dotnet restore bootstrap-multiselect.sln
+      - name: Restore dependencies
+        run: dotnet restore bootstrap-multiselect.sln
 
-    - name: Build
-      run: dotnet build bootstrap-multiselect.sln --configuration Release --no-restore
+      - name: Build
+        run: dotnet build bootstrap-multiselect.sln --configuration Release --no-restore
 
-    - name: Run tests
-      run: dotnet test bootstrap-multiselect.sln --configuration Release --no-build --verbosity normal
+      - name: Run tests
+        run: dotnet test bootstrap-multiselect.sln --configuration Release --no-build --verbosity normal
 
-    - name: Pack NuGet package
-      if: matrix.os == 'ubuntu-latest' && matrix.dotnet-version == '9.0.x'
-      run: dotnet pack src/BootstrapMultiSelect.MVC/BootstrapMultiSelect.MVC.csproj --configuration Release --no-build --output ./artifacts
+      - name: Pack NuGet package
+        if: matrix.os == 'ubuntu-latest' && matrix.dotnet-version == '9.0.x'
+        run: dotnet pack src/BootstrapMultiSelect.MVC/BootstrapMultiSelect.MVC.csproj --configuration Release --no-build --output ./artifacts
 
-    - name: Upload NuGet artifact
-      if: matrix.os == 'ubuntu-latest' && matrix.dotnet-version == '9.0.x'
-      uses: actions/upload-artifact@v4
-      with:
-        name: nuget-package
-        path: ./artifacts/*.nupkg
+      - name: Upload NuGet artifact
+        if: matrix.os == 'ubuntu-latest' && matrix.dotnet-version == '9.0.x'
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package
+          path: ./artifacts/*.nupkg
 
   build-plugin:
     name: Build npm Package
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18.x'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
 
-    - name: Verify package.json
-      run: |
-        cd src/BootstrapMultiSelect.Plugin
-        cat package.json
+      - name: Build plugin package
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          chmod +x build.sh
+          bash build.sh
 
-    - name: npm pack
-      run: |
-        cd src/BootstrapMultiSelect.Plugin
-        npm pack
+      - name: Verify package.json
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          cat package.json
 
-    - name: Upload npm artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: npm-package
-        path: src/BootstrapMultiSelect.Plugin/*.tgz
+      - name: Verify dist files
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          echo "=== Distribution files ==="
+          ls -la dist/
+          echo "=== JavaScript files ==="
+          ls -la dist/js/
+          echo "=== CSS files ==="
+          ls -la dist/css/
+          echo "=== Language files ==="
+          ls -la dist/langs/
+
+      - name: npm pack
+        run: |
+          cd src/BootstrapMultiSelect.Plugin
+          npm pack
+
+      - name: Upload npm artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-package
+          path: src/BootstrapMultiSelect.Plugin/*.tgz

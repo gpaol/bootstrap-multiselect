@@ -24,7 +24,7 @@ A .NET Core MVC library providing TagHelper and HtmlHelper extensions for the Bo
 
 ## Localization
 
-The library supports multiple languages through locale files. Available locales:
+The library supports multiple languages through lang files. Available languages:
 
 - **en** - English (default, built-in)
 - **it** - Italian
@@ -35,7 +35,7 @@ The library supports multiple languages through locale files. Available locales:
 
 ### Global Localization
 
-Load the locale file and it will automatically set the global locale:
+Load the lang file and it will automatically set the global lang:
 
 ```html
 <!-- Load plugin -->
@@ -61,21 +61,21 @@ In your `_Layout.cshtml`:
 
 @if (culture != "en")
 {
-    <!-- Locale is automatically set when the file is loaded -->
-    <script src="~/js/locales/jquery-bootstrap-multiselect.@(culture).js"></script>
+    <!-- Language is automatically set when the file is loaded -->
+    <script src="~/js/langs/jquery-bootstrap-multiselect.@(culture).js"></script>
 }
 ```
 
-### Per-Instance Locale
+### Per-Instance Language
 
-You can override the global locale for specific instances:
+You can override the global language for specific instances:
 
 **Tag Helper:**
 
 ```html
 <multiselect asp-for="SelectedItems" 
              asp-items="Model.AvailableItems"
-             locale="it"
+             lang="it"
              placeholder="Seleziona elementi..." />
 ```
 
@@ -84,7 +84,7 @@ You can override the global locale for specific instances:
 ```csharp
 @Html.MultiSelectFor(m => m.SelectedItems, Model.AvailableItems, new MultiSelectConfig
 {
-    Locale = "it",
+    Lang = "it",
     Placeholder = "Seleziona elementi..."
 })
 ```
@@ -94,12 +94,12 @@ You can override the global locale for specific instances:
 When determining which text to display:
 
 1. **Explicit properties** (e.g., `placeholder="Custom text"`)
-2. **Locale file** (e.g., Italian locale)
+2. **Language file** (e.g., Italian language)
 3. **Default English** (built-in)
 
-### Available Locale Files
+### Available Language Files
 
-Locale files are located in: `wwwroot/js/locales/`
+Language files are located in: `wwwroot/js/langs/`
 
 - `jquery-bootstrap-multiselect.it.js` - Italian
 - `jquery-bootstrap-multiselect.es.js` - Spanish
@@ -107,7 +107,7 @@ Locale files are located in: `wwwroot/js/locales/`
 - `jquery-bootstrap-multiselect.de.js` - German
 - `jquery-bootstrap-multiselect.pt.js` - Portuguese
 
-See the [locales README](../JQueryMultiSelect/wwwroot/js/locales/README.md) for more details.
+See the [langs README](../JQueryMultiSelect/wwwroot/js/langs/README.md) for more details.
 
 ## Usage
 
@@ -151,7 +151,7 @@ Then use in your views:
 | `no-results-text` | string | "No results found" | No results message |
 | `max-height` | string | "300px" | Max dropdown height |
 | `items-selected-text` | string | "items selected" | Text for multiple selection count |
-| `locale` | string | null | Locale code (e.g., "it", "es", "fr") |
+| `lang` | string | null | Language code (e.g., "it", "es", "fr") |
 
 ### HTML Helper
 
@@ -321,7 +321,7 @@ var model = new MyViewModel
 ```html
 <multiselect asp-for="SelectedItems" 
              asp-items="Model.AvailableItems"
-             locale="it" />
+             lang="it" />
 <!-- All text will be in Italian: "Seleziona elementi...", "Cerca...", etc. -->
 ```
 
@@ -330,23 +330,23 @@ var model = new MyViewModel
 ```csharp
 @Html.MultiSelectFor(m => m.SelectedItems, Model.AvailableItems, new MultiSelectConfig
 {
-    Locale = "es"
+    Lang = "es"
 })
 <!-- All text will be in Spanish: "Seleccionar elementos...", "Buscar...", etc. -->
 ```
 
-**Global Locale in Layout:**
+**Global Language in Layout:**
 
 ```html
 <!-- _Layout.cshtml -->
 <script src="~/js/jquery-bootstrap-multiselect.js"></script>
-<script src="~/js/locales/jquery-bootstrap-multiselect.it.js"></script>
-<!-- Italian is now automatically set as the global locale -->
+<script src="~/js/langs/jquery-bootstrap-multiselect.it.js"></script>
+<!-- Italian is now automatically set as the global language -->
 
 <!-- Now all multiselect instances in all views will use Italian -->
 ```
 
-**Dynamic Locale Based on User Culture:**
+**Dynamic Language Based on User Culture:**
 
 ```html
 @using System.Globalization
@@ -358,8 +358,8 @@ var model = new MyViewModel
 
 @if (culture != "en")
 {
-    <!-- Automatically sets the locale when loaded -->
-    <script src="~/js/locales/jquery-bootstrap-multiselect.@(culture).js"></script>
+    <!-- Automatically sets the language when loaded -->
+    <script src="~/js/langs/jquery-bootstrap-multiselect.@(culture).js"></script>
 }
 
 <!-- Automatically uses user's language (it, es, fr, de, pt) -->

@@ -12,7 +12,10 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "echo 'Build completed'",
+    "build": "node -e \"require('os').platform() === 'win32' ? require('child_process').execSync('powershell -ExecutionPolicy Bypass -File ./build.ps1', {stdio: 'inherit'}) : require('child_process').execSync('bash ./build.sh', {stdio: 'inherit'})\"",
+    "build:win": "powershell -ExecutionPolicy Bypass -File ./build.ps1",
+    "build:unix": "bash ./build.sh",
+    "prepublishOnly": "npm run build",
     "test": "echo 'No tests yet'"
   },
   "keywords": [
