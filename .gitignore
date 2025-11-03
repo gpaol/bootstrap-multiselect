@@ -208,3 +208,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Backup files
+*.bak
+samples/AspNetCore/Views/Home/Index.cshtml.bak
+
+# Publishing guide files (internal use only)
+PUBLISHING-CHECKLIST.md
+PUBLISHING-COMMANDS.md
+PUBLISHING-GUIDE.md
