@@ -18,8 +18,7 @@ $ErrorActionPreference = "Stop"
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
 $PluginRoot = Join-Path $ProjectRoot "src\BootstrapMultiSelect.Plugin"
 $MvcRoot = Join-Path $ProjectRoot "src\BootstrapMultiSelect.MVC"
-$SamplesWwwRoot = Join-Path $ProjectRoot "samples\AspNetCore\wwwroot"
-$PluginDistRoot = Join-Path $ProjectRoot "dist\plugin"
+$NpmDistRoot = Join-Path $ProjectRoot "dist\npm"
 $NugetDistRoot = Join-Path $ProjectRoot "dist\nuget"
 
 # Function to write colored output
@@ -51,9 +50,9 @@ try {
     
     # Clean dist folders if requested
     if ($Clean) {
-        if (Test-Path $PluginDistRoot) {
-            Write-Warning "Cleaning existing plugin dist folder..."
-            Remove-Item -Path $PluginDistRoot -Recurse -Force
+        if (Test-Path $NpmDistRoot) {
+            Write-Warning "Cleaning existing npm dist folder..."
+            Remove-Item -Path $NpmDistRoot -Recurse -Force
         }
         if (Test-Path $NugetDistRoot) {
             Write-Warning "Cleaning existing NuGet dist folder..."
@@ -63,63 +62,67 @@ try {
     
     # Create dist folder structure
     Write-Status "Creating dist folder structure..."
-    $DistCss = Join-Path $PluginDistRoot "css"
-    $DistJs = Join-Path $PluginDistRoot "js"
-    $DistLangs = Join-Path $PluginDistRoot "langs"
-    
-    New-Item -ItemType Directory -Path $DistCss -Force | Out-Null
-    New-Item -ItemType Directory -Path $DistJs -Force | Out-Null
-    New-Item -ItemType Directory -Path $DistLangs -Force | Out-Null
+    New-Item -ItemType Directory -Path $NpmDistRoot -Force | Out-Null
     New-Item -ItemType Directory -Path $NugetDistRoot -Force | Out-Null
     
     Write-Success "[OK] Folder structure created"
     
-    # Create NuGet dist folder
-    Write-Status "Creating NuGet dist folder..."
-    New-Item -ItemType Directory -Path $NugetDistRoot -Force | Out-Null
-    Write-Success "[OK] NuGet folder created"
+    # Build npm package
+    Write-Host ""
+    Write-Status "=====================================" "Cyan"
+    Write-Status "Building npm package..." "Cyan"
+    Write-Status "=====================================" "Cyan"
+    Write-Host ""
     
-    # Copy CSS files
-    Write-Status "Copying CSS files..."
-    $CssSource = Join-Path $SamplesWwwRoot "css"
-    Copy-Item -Path "$CssSource\jquery-bootstrap-multiselect.css" -Destination "$DistCss\bootstrap-multiselect.css" -Force
-    Copy-Item -Path "$CssSource\jquery-bootstrap-multiselect.min.css" -Destination "$DistCss\bootstrap-multiselect.min.css" -Force
-    Write-Success "[OK] CSS files copied (2 files)"
-    
-    # Copy JS files
-    Write-Status "Copying JS files..."
-    $JsSource = Join-Path $SamplesWwwRoot "js"
-    Copy-Item -Path "$JsSource\jquery-bootstrap-multiselect.js" -Destination "$DistJs\bootstrap-multiselect.js" -Force
-    Copy-Item -Path "$JsSource\jquery-bootstrap-multiselect.min.js" -Destination "$DistJs\bootstrap-multiselect.min.js" -Force
-    Write-Success "[OK] JS files copied (2 files)"
-    
-    # Copy language files
-    Write-Status "Copying language files..."
-    $LangsSource = Join-Path $JsSource "langs"
-    $LangFiles = Get-ChildItem -Path $LangsSource -Filter "*.js"
-    foreach ($LangFile in $LangFiles) {
-        Copy-Item -Path $LangFile.FullName -Destination $DistLangs -Force
-        if ($Verbose) {
-            Write-Host "  - $($LangFile.Name)" -ForegroundColor Gray
+    Push-Location $PluginRoot
+    try {
+        Write-Status "Running npm pack..."
+        
+        # Temporarily disable ErrorActionPreference for npm pack
+        $PrevErrorActionPreference = $ErrorActionPreference
+        $ErrorActionPreference = "Continue"
+        
+        # Run npm pack
+        $NpmOutput = npm pack 2>&1
+        $NpmExitCode = $LASTEXITCODE
+        
+        # Restore ErrorActionPreference
+        $ErrorActionPreference = $PrevErrorActionPreference
+        
+        if ($NpmExitCode -eq 0) {
+            Write-Success "[OK] npm package built successfully"
+            
+            # Find the generated .tgz file
+            $TgzFiles = @(Get-ChildItem -Path $PluginRoot -Filter "*.tgz")
+            if ($TgzFiles.Count -gt 0) {
+                foreach ($TgzFile in $TgzFiles) {
+                    Write-Status "Copying $($TgzFile.Name) to npm dist..."
+                    Copy-Item -Path $TgzFile.FullName -Destination $NpmDistRoot -Force
+                    
+                    # Clean up the .tgz file from plugin root
+                    Remove-Item -Path $TgzFile.FullName -Force
+                    
+                    if ($Verbose) {
+                        Write-Host "  - $($TgzFile.Name)" -ForegroundColor Gray
+                    }
+                }
+                Write-Success "[OK] npm package copied to dist ($($TgzFiles.Count) file(s))"
+            }
+            else {
+                Write-Warning "No .tgz files found after npm pack"
+                throw "npm pack did not generate a .tgz file"
+            }
+        }
+        else {
+            Write-Error-Message "npm pack failed with exit code $NpmExitCode"
+            if ($Verbose -and $NpmOutput) {
+                Write-Host ($NpmOutput | Out-String) -ForegroundColor Red
+            }
+            throw "npm pack failed"
         }
     }
-    Write-Success "[OK] Language files copied ($($LangFiles.Count) files)"
-    
-    # Copy additional files to plugin dist root
-    Write-Status "Copying additional files to plugin dist..."
-    $ReadmeSource = Join-Path $PluginRoot "README.md"
-    $LicenseSource = Join-Path $ProjectRoot "LICENSE"
-    
-    if (Test-Path $ReadmeSource) {
-        $ReadmeDest = Join-Path $PluginDistRoot "README.md"
-        Copy-Item -Path $ReadmeSource -Destination $ReadmeDest -Force
-        Write-Success "[OK] README.md copied to plugin dist"
-    }
-    
-    if (Test-Path $LicenseSource) {
-        $LicenseDest = Join-Path $PluginDistRoot "LICENSE"
-        Copy-Item -Path $LicenseSource -Destination $LicenseDest -Force
-        Write-Success "[OK] LICENSE copied to plugin dist"
+    finally {
+        Pop-Location
     }
     
     # Build NuGet package
@@ -165,13 +168,16 @@ try {
     Write-Status "=====================================" "Green"
     Write-Host ""
     
-    # Plugin summary
-    Write-Status "npm Plugin Package:" "Cyan"
-    Write-Host "  Location: $PluginDistRoot" -ForegroundColor Cyan
-    Write-Host "  Structure:" -ForegroundColor Gray
-    Write-Host "    dist/plugin/css/         - 2 CSS files" -ForegroundColor Gray
-    Write-Host "    dist/plugin/js/          - 2 JS files" -ForegroundColor Gray
-    Write-Host "    dist/plugin/langs/       - $($LangFiles.Count) language files" -ForegroundColor Gray
+    # npm summary
+    Write-Status "npm Package:" "Cyan"
+    Write-Host "  Location: $NpmDistRoot" -ForegroundColor Cyan
+    $NpmPackages = Get-ChildItem -Path $NpmDistRoot -Filter "*.tgz" -ErrorAction SilentlyContinue
+    if ($NpmPackages) {
+        Write-Host "  Packages:" -ForegroundColor Gray
+        foreach ($Package in $NpmPackages) {
+            Write-Host "    - $($Package.Name)" -ForegroundColor Gray
+        }
+    }
     Write-Host ""
     
     # NuGet summary
@@ -187,11 +193,9 @@ try {
     Write-Host ""
     
     Write-Status "Next steps:" "Yellow"
-    Write-Host "  npm plugin:" -ForegroundColor Cyan
-    Write-Host "    1. cd dist\plugin" -ForegroundColor Gray
-    Write-Host "    2. Copy package.json from src\BootstrapMultiSelect.Plugin" -ForegroundColor Gray
-    Write-Host "    3. Update version in package.json if needed" -ForegroundColor Gray
-    Write-Host "    4. npm publish" -ForegroundColor Gray
+    Write-Host "  npm package:" -ForegroundColor Cyan
+    Write-Host "    1. cd dist\npm" -ForegroundColor Gray
+    Write-Host "    2. npm publish <package-name>.tgz" -ForegroundColor Gray
     Write-Host ""
     Write-Host "  NuGet package:" -ForegroundColor Cyan
     Write-Host "    1. Review packages in dist\nuget" -ForegroundColor Gray

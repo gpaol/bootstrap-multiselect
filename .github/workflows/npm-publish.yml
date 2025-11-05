@@ -25,22 +25,16 @@ jobs:
           node-version: "18.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Build plugin package
+      - name: Verify source files exist
         run: |
           cd src/BootstrapMultiSelect.Plugin
-          chmod +x build.sh
-          bash build.sh
-
-      - name: Verify files exist
-        run: |
-          cd src/BootstrapMultiSelect.Plugin
-          ls -la dist/
+          ls -la src/
           echo "--- JavaScript files ---"
-          ls -la dist/js/
+          ls -la src/js/
           echo "--- CSS files ---"
-          ls -la dist/css/
+          ls -la src/css/
           echo "--- Language files ---"
-          ls -la dist/langs/
+          ls -la src/langs/
 
       - name: Update version in package.json
         if: github.event_name == 'release'

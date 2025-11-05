@@ -57,28 +57,22 @@ jobs:
         with:
           node-version: "18.x"
 
-      - name: Build plugin package
-        run: |
-          cd src/BootstrapMultiSelect.Plugin
-          chmod +x build.sh
-          bash build.sh
-
       - name: Verify package.json
         run: |
           cd src/BootstrapMultiSelect.Plugin
           cat package.json
 
-      - name: Verify dist files
+      - name: Verify source files
         run: |
           cd src/BootstrapMultiSelect.Plugin
-          echo "=== Distribution files ==="
-          ls -la dist/
+          echo "=== Source files ==="
+          ls -la src/
           echo "=== JavaScript files ==="
-          ls -la dist/js/
+          ls -la src/js/
           echo "=== CSS files ==="
-          ls -la dist/css/
+          ls -la src/css/
           echo "=== Language files ==="
-          ls -la dist/langs/
+          ls -la src/langs/
 
       - name: npm pack
         run: |

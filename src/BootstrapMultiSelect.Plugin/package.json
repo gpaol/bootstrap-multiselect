@@ -2,20 +2,16 @@
   "name": "bootstrap-multiselect",
   "version": "1.1.0",
   "description": "Bootstrap 5 MultiSelect component with search, filtering, grouped options, and comprehensive localization support",
-  "main": "dist/js/bootstrap-multiselect.js",
-  "style": "dist/css/bootstrap-multiselect.css",
+  "main": "src/js/bootstrap-multiselect.js",
+  "style": "src/css/bootstrap-multiselect.css",
   "files": [
-    "dist/css/**/*",
-    "dist/js/**/*",
-    "dist/langs/**/*",
+    "src/css/**/*",
+    "src/js/**/*",
+    "src/langs/**/*",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "node -e \"require('os').platform() === 'win32' ? require('child_process').execSync('powershell -ExecutionPolicy Bypass -File ./build.ps1', {stdio: 'inherit'}) : require('child_process').execSync('bash ./build.sh', {stdio: 'inherit'})\"",
-    "build:win": "powershell -ExecutionPolicy Bypass -File ./build.ps1",
-    "build:unix": "bash ./build.sh",
-    "prepublishOnly": "npm run build",
     "test": "echo 'No tests yet'"
   },
   "keywords": [
