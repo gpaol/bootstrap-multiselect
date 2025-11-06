@@ -165,6 +165,12 @@ Then open `https://localhost:5034` in your browser.
 | `showSelectAll` | boolean | false | Show Select All/Deselect All buttons |
 | `selectAllText` | string | "Select All" | Text for Select All button |
 | `deselectAllText` | string | "Deselect All" | Text for Deselect All button |
+| `enablePagination` | boolean | false | Enable pagination for large lists |
+| `itemsPerPage` | number | 10 | Number of items to show per page |
+| `paginationPosition` | string | "bottom" | Position of pagination controls: "top", "bottom", or "both" |
+| `paginationPrevText` | string | "Previous" | Text for previous page button |
+| `paginationNextText` | string | "Next" | Text for next page button |
+| `paginationInfoText` | string | "Page {current} of {total}" | Template for page info display |
 | `lang` | string | "en" | Language code (en, it, es, fr, de, pt) |
 
 ### Data Attributes
