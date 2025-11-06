@@ -443,4 +443,4 @@ Contributions, issues, and feature requests are welcome!
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+See [CONTRIBUTING.md](https://github.com/gpaol/bootstrap-multiselect/blob/main/CONTRIBUTING.md) for detailed guidelines.

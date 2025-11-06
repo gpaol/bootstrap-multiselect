@@ -1,7 +1,7 @@
 # Bootstrap MultiSelect
 
 [![NuGet](https://img.shields.io/nuget/v/BootstrapMultiSelect.MVC.svg)](https://www.nuget.org/packages/BootstrapMultiSelect.MVC/)
-[![npm](https://img.shields.io/npm/v/bootstrap-multiselect.svg)](https://www.npmjs.com/package/bootstrap-multiselect)
+[![npm](https://img.shields.io/npm/v/@gpaol/bootstrap-multiselect.svg)](https://www.npmjs.com/package/@gpaol/bootstrap-multiselect)
 [![Build Status](https://github.com/gpaol/bootstrap-multiselect/workflows/Build%20and%20Test/badge.svg)](https://github.com/gpaol/bootstrap-multiselect/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
