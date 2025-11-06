@@ -1,5 +1,5 @@
 {
-  "name": "bootstrap-multiselect",
+  "name": "@gpaol/bootstrap-multiselect",
   "version": "1.1.0",
   "description": "Bootstrap 5 MultiSelect component with search, filtering, grouped options, and comprehensive localization support",
   "main": "src/js/bootstrap-multiselect.js",
@@ -36,7 +36,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gpaol/bootstrap-multiselect.git"
+    "url": "git+https://github.com/gpaol/bootstrap-multiselect.git"
   },
   "bugs": {
     "url": "https://github.com/gpaol/bootstrap-multiselect/issues"
