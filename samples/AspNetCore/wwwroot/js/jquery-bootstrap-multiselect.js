@@ -1,12 +1,12 @@
 /*!
- * Bootstrap MultiSelect - jQuery Plugin v1.1.0
+ * Bootstrap MultiSelect - jQuery Plugin v1.2.0
  * 
  * A powerful multi-select dropdown plugin built with Bootstrap 5
  * Supports declarative configuration via data attributes and programmatic control via JavaScript API
  * 
  * This plugin transforms standard HTML select elements or input fields into feature-rich
  * multi-select dropdowns with search, filtering, select all/deselect all functionality,
- * maximum selection limits, disabled options, optgroup support, and more.
+ * maximum selection limits, disabled options, optgroup support, pagination, and more.
  * 
  * Authors: Paolo Gaetano
  * Copyright (c) 2026 Paolo Gaetano
@@ -155,7 +155,10 @@
             selectAllText: 'Select All',
             deselectAllText: 'Deselect All',
             noResultsText: 'No results found',
-            itemsSelectedText: 'items selected'
+            itemsSelectedText: 'items selected',
+            paginationPrevText: 'Previous',
+            paginationNextText: 'Next',
+            paginationInfoText: 'Page {current} of {total}'
         }
     };
 
@@ -188,6 +191,12 @@
         noResultsText: 'No results found',
         maxHeight: '300px',
         itemsSelectedText: 'items selected',
+        enablePagination: false,
+        itemsPerPage: 10,
+        paginationPrevText: 'Previous',
+        paginationNextText: 'Next',
+        paginationInfoText: 'Page {current} of {total}',
+        paginationPosition: 'bottom', // 'top', 'bottom', or 'both'
         lang: null // If null, uses global lang
     };
 
@@ -207,6 +216,8 @@
             this.id = this._generateId();
             this.isOpen = false;
             this.selectedItems = [];
+            this.currentPage = 1;
+            this.filteredData = [];
 
             this._init();
         }
@@ -236,6 +247,12 @@
                 noResultsText: this.$element.data('no-results-text'),
                 maxHeight: this.$element.data('max-height'),
                 itemsSelectedText: this.$element.data('items-selected-text'),
+                enablePagination: this.$element.data('enable-pagination'),
+                itemsPerPage: this.$element.data('items-per-page'),
+                paginationPrevText: this.$element.data('pagination-prev-text'),
+                paginationNextText: this.$element.data('pagination-next-text'),
+                paginationInfoText: this.$element.data('pagination-info-text'),
+                paginationPosition: this.$element.data('pagination-position'),
                 lang: this.$element.data('lang')
             };
 
@@ -285,6 +302,15 @@
                     }
                     if (!dataOptions.itemsSelectedText && !options?.itemsSelectedText) {
                         mergedOptions.itemsSelectedText = langData.itemsSelectedText;
+                    }
+                    if (!dataOptions.paginationPrevText && !options?.paginationPrevText) {
+                        mergedOptions.paginationPrevText = langData.paginationPrevText;
+                    }
+                    if (!dataOptions.paginationNextText && !options?.paginationNextText) {
+                        mergedOptions.paginationNextText = langData.paginationNextText;
+                    }
+                    if (!dataOptions.paginationInfoText && !options?.paginationInfoText) {
+                        mergedOptions.paginationInfoText = langData.paginationInfoText;
                     }
                 }
             }
@@ -457,6 +483,11 @@
 
             html += '<hr class="my-2">';
 
+            // Pagination controls (top)
+            if (this.options.enablePagination && (this.options.paginationPosition === 'top' || this.options.paginationPosition === 'both')) {
+                html += this._buildPaginationControls('top');
+            }
+
             // Options list
             html += '<div class="bs-multiselect-options">';
             html += this._buildOptions();
@@ -469,9 +500,92 @@
                 </div>
             `;
 
+            // Pagination controls (bottom) - AFTER options list
+            if (this.options.enablePagination && (this.options.paginationPosition === 'bottom' || this.options.paginationPosition === 'both')) {
+                html += this._buildPaginationControls('bottom');
+            }
+
             html += '</div>';
 
             return html;
+        }
+
+        /**
+         * Build pagination controls HTML
+         * 
+         * @param {string} position - Position of pagination ('top' or 'bottom')
+         * @returns {string} Pagination controls HTML
+         */
+        _buildPaginationControls(position = 'top') {
+            const totalPages = this._getTotalPages();
+            const paginationInfo = this.options.paginationInfoText
+                .replace('{current}', this.currentPage)
+                .replace('{total}', totalPages);
+
+            // Add top margin for bottom pagination
+            const marginClass = position === 'bottom' ? 'mt-2' : 'mb-2';
+
+            return `
+                <div class="bs-multiselect-pagination d-flex justify-content-between align-items-center ${marginClass}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary bs-multiselect-prev-page" ${this.currentPage === 1 ? 'disabled' : ''}>
+                        ${this.options.paginationPrevText}
+                    </button>
+                    <span class="bs-multiselect-page-info text-muted small">
+                        ${paginationInfo}
+                    </span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary bs-multiselect-next-page" ${this.currentPage === totalPages ? 'disabled' : ''}>
+                        ${this.options.paginationNextText}
+                    </button>
+                </div>
+            `;
+        }
+
+        /**
+         * Get total number of pages
+         * 
+         * @returns {number} Total pages
+         */
+        _getTotalPages() {
+            const dataToUse = this.filteredData.length > 0 ? this.filteredData : this.options.data;
+            const flatItems = this._getFlatItems(dataToUse);
+            return Math.max(1, Math.ceil(flatItems.length / this.options.itemsPerPage));
+        }
+
+        /**
+         * Get flat list of items (excluding optgroups)
+         * 
+         * @param {Array} data - Data array
+         * @returns {Array} Flat items array
+         */
+        _getFlatItems(data) {
+            const items = [];
+            data.forEach(item => {
+                if (item.label && item.children) {
+                    items.push(...item.children);
+                } else {
+                    items.push(item);
+                }
+            });
+            return items;
+        }
+
+        /**
+         * Get paginated items for current page
+         * 
+         * @returns {Array} Paginated items
+         */
+        _getPaginatedItems() {
+            if (!this.options.enablePagination) {
+                return this.options.data;
+            }
+
+            const dataToUse = this.filteredData.length > 0 ? this.filteredData : this.options.data;
+            const flatItems = this._getFlatItems(dataToUse);
+
+            const startIndex = (this.currentPage - 1) * this.options.itemsPerPage;
+            const endIndex = startIndex + this.options.itemsPerPage;
+
+            return flatItems.slice(startIndex, endIndex);
         }
 
         /**
@@ -482,7 +596,9 @@
         _buildOptions() {
             let html = '';
 
-            this.options.data.forEach((item, index) => {
+            const itemsToRender = this.options.enablePagination ? this._getPaginatedItems() : this.options.data;
+
+            itemsToRender.forEach((item, index) => {
                 if (item.label && item.children) {
                     // OptGroup
                     html += this._buildOptGroup(item, index);
@@ -586,6 +702,21 @@
             if (this.options.search) {
                 this.$searchInput.on('input', function () {
                     self._filterOptions($(this).val());
+                });
+            }
+
+            // Pagination buttons
+            if (this.options.enablePagination) {
+                this.$dropdownMenu.on('click', '.bs-multiselect-prev-page', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    self._goToPreviousPage();
+                });
+
+                this.$dropdownMenu.on('click', '.bs-multiselect-next-page', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    self._goToNextPage();
                 });
             }
 
@@ -695,43 +826,89 @@
          */
         _selectAll() {
             const self = this;
-            // Get only checkboxes that are not originally disabled
-            const $visibleCheckboxes = this.$optionsList.find('.bs-multiselect-option:visible .form-check-input').filter(function () {
-                return !$(this).data('original-disabled');
-            });
 
-            if (this.options.maxSelection > 0) {
-                const limit = this.options.maxSelection;
-                const currentCount = this.selectedItems.length;
-                const availableSlots = limit - currentCount;
+            if (this.options.enablePagination) {
+                // In pagination mode, select all visible items on current page
+                const visibleItems = this._getPaginatedItems();
+                const visibleValues = visibleItems.map(item => item[this.options.valueField]);
 
-                if (availableSlots <= 0) {
-                    this._showMaxSelectionWarning();
-                    return;
+                if (this.options.maxSelection > 0) {
+                    const limit = this.options.maxSelection;
+                    const currentCount = this.selectedItems.length;
+                    const availableSlots = limit - currentCount;
+
+                    if (availableSlots <= 0) {
+                        this._showMaxSelectionWarning();
+                        return;
+                    }
+
+                    // Select only unchecked items up to the available slots
+                    let slotsUsed = 0;
+                    visibleValues.forEach(value => {
+                        if (!this.selectedItems.includes(value) && slotsUsed < availableSlots) {
+                            this.selectedItems.push(value);
+                            slotsUsed++;
+                        }
+                    });
+
+                    if (slotsUsed < visibleValues.filter(v => !this.selectedItems.includes(v)).length) {
+                        this._showMaxSelectionWarning();
+                    }
+                } else {
+                    visibleValues.forEach(value => {
+                        if (!this.selectedItems.includes(value)) {
+                            this.selectedItems.push(value);
+                        }
+                    });
                 }
 
-                // Select only unchecked items up to the available slots
-                let slotsUsed = 0;
-                $visibleCheckboxes.each(function () {
+                // Update checkboxes
+                this.$optionsList.find('.form-check-input').each(function () {
                     const $checkbox = $(this);
-                    if (!$checkbox.prop('checked') && slotsUsed < availableSlots) {
+                    const value = $checkbox.val();
+                    if (self.selectedItems.includes(value)) {
                         $checkbox.prop('checked', true);
-                        self.selectedItems.push($checkbox.val());
-                        slotsUsed++;
                     }
                 });
-
-                if (slotsUsed < $visibleCheckboxes.filter(':not(:checked)').length) {
-                    this._showMaxSelectionWarning();
-                }
             } else {
-                $visibleCheckboxes.each(function () {
-                    const $checkbox = $(this);
-                    if (!$checkbox.prop('checked')) {
-                        $checkbox.prop('checked', true);
-                        self.selectedItems.push($checkbox.val());
-                    }
+                // Original select all logic (non-pagination)
+                const $visibleCheckboxes = this.$optionsList.find('.bs-multiselect-option:visible .form-check-input').filter(function () {
+                    return !$(this).data('original-disabled');
                 });
+
+                if (this.options.maxSelection > 0) {
+                    const limit = this.options.maxSelection;
+                    const currentCount = this.selectedItems.length;
+                    const availableSlots = limit - currentCount;
+
+                    if (availableSlots <= 0) {
+                        this._showMaxSelectionWarning();
+                        return;
+                    }
+
+                    // Select only unchecked items up to the available slots
+                    let slotsUsed = 0;
+                    $visibleCheckboxes.each(function () {
+                        const $checkbox = $(this);
+                        if (!$checkbox.prop('checked') && slotsUsed < availableSlots) {
+                            $checkbox.prop('checked', true);
+                            self.selectedItems.push($checkbox.val());
+                            slotsUsed++;
+                        }
+                    });
+
+                    if (slotsUsed < $visibleCheckboxes.filter(':not(:checked)').length) {
+                        this._showMaxSelectionWarning();
+                    }
+                } else {
+                    $visibleCheckboxes.each(function () {
+                        const $checkbox = $(this);
+                        if (!$checkbox.prop('checked')) {
+                            $checkbox.prop('checked', true);
+                            self.selectedItems.push($checkbox.val());
+                        }
+                    });
+                }
             }
 
             // Remove duplicates
@@ -765,43 +942,137 @@
             const searchTerm = query.toLowerCase().trim();
 
             if (!searchTerm) {
-                this.$optionsList.find('.bs-multiselect-option, .bs-multiselect-optgroup').show();
+                this.filteredData = [];
+                this.currentPage = 1;
+
+                if (this.options.enablePagination) {
+                    this._refreshPagination();
+                } else {
+                    this.$optionsList.find('.bs-multiselect-option, .bs-multiselect-optgroup').show();
+                }
                 this.$noResults.hide();
                 return;
             }
 
-            let visibleCount = 0;
+            if (this.options.enablePagination) {
+                // For pagination mode, filter data and rebuild
+                this.filteredData = this.options.data.filter(item => {
+                    if (item.label && item.children) {
+                        // Filter optgroup children
+                        const filteredChildren = item.children.filter(child => {
+                            const text = child[this.options.textField].toLowerCase();
+                            return text.includes(searchTerm);
+                        });
+                        return filteredChildren.length > 0;
+                    } else {
+                        const text = item[this.options.textField].toLowerCase();
+                        return text.includes(searchTerm);
+                    }
+                });
 
-            this.$optionsList.find('.bs-multiselect-option').each(function () {
-                const $option = $(this);
-                const text = $option.find('.form-check-label').text().toLowerCase();
+                // Update filtered data to include only matching children in optgroups
+                this.filteredData = this.filteredData.map(item => {
+                    if (item.label && item.children) {
+                        return {
+                            ...item,
+                            children: item.children.filter(child => {
+                                const text = child[this.options.textField].toLowerCase();
+                                return text.includes(searchTerm);
+                            })
+                        };
+                    }
+                    return item;
+                });
 
-                if (text.includes(searchTerm)) {
-                    $option.show();
-                    visibleCount++;
+                this.currentPage = 1;
+                this._refreshPagination();
+
+                // Check if there are results
+                if (this._getFlatItems(this.filteredData).length === 0) {
+                    this.$noResults.show();
                 } else {
-                    $option.hide();
+                    this.$noResults.hide();
                 }
-            });
-
-            // Handle optgroups
-            this.$optionsList.find('.bs-multiselect-optgroup').each(function () {
-                const $group = $(this);
-                const visibleChildren = $group.find('.bs-multiselect-option:visible').length;
-
-                if (visibleChildren > 0) {
-                    $group.show();
-                } else {
-                    $group.hide();
-                }
-            });
-
-            // Show/hide no results message
-            if (visibleCount === 0) {
-                this.$noResults.show();
             } else {
-                this.$noResults.hide();
+                // Original non-pagination filtering logic
+                let visibleCount = 0;
+
+                this.$optionsList.find('.bs-multiselect-option').each(function () {
+                    const $option = $(this);
+                    const text = $option.find('.form-check-label').text().toLowerCase();
+
+                    if (text.includes(searchTerm)) {
+                        $option.show();
+                        visibleCount++;
+                    } else {
+                        $option.hide();
+                    }
+                });
+
+                // Handle optgroups
+                this.$optionsList.find('.bs-multiselect-optgroup').each(function () {
+                    const $group = $(this);
+                    const visibleChildren = $group.find('.bs-multiselect-option:visible').length;
+
+                    if (visibleChildren > 0) {
+                        $group.show();
+                    } else {
+                        $group.hide();
+                    }
+                });
+
+                // Show/hide no results message
+                if (visibleCount === 0) {
+                    this.$noResults.show();
+                } else {
+                    this.$noResults.hide();
+                }
             }
+        }
+
+        /**
+         * Go to previous page
+         */
+        _goToPreviousPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this._refreshPagination();
+            }
+        }
+
+        /**
+         * Go to next page
+         */
+        _goToNextPage() {
+            const totalPages = this._getTotalPages();
+            if (this.currentPage < totalPages) {
+                this.currentPage++;
+                this._refreshPagination();
+            }
+        }
+
+        /**
+         * Refresh pagination controls and options list
+         */
+        _refreshPagination() {
+            // Rebuild options list
+            this.$optionsList.html(this._buildOptions());
+
+            // Update pagination controls
+            const totalPages = this._getTotalPages();
+            const paginationInfo = this.options.paginationInfoText
+                .replace('{current}', this.currentPage)
+                .replace('{total}', totalPages);
+
+            this.$dropdownMenu.find('.bs-multiselect-page-info').text(paginationInfo);
+            this.$dropdownMenu.find('.bs-multiselect-prev-page').prop('disabled', this.currentPage === 1);
+            this.$dropdownMenu.find('.bs-multiselect-next-page').prop('disabled', this.currentPage === totalPages);
+
+            // Restore checked state for selected items
+            const self = this;
+            this.selectedItems.forEach(value => {
+                this.$optionsList.find(`.form-check-input[value="${value}"]`).prop('checked', true);
+            });
         }
 
         /**

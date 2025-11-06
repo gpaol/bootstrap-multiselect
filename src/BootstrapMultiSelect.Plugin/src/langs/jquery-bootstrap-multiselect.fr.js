@@ -1,5 +1,5 @@
 /*!
- * Bootstrap MultiSelect - French (Français) Localization v1.1.0
+ * Bootstrap MultiSelect - French (Français) Localization v1.2.0
  * 
  * This file provides French language support for the Bootstrap MultiSelect plugin.
  * Load this file after jquery-bootstrap-multiselect.js to enable French localization.
@@ -34,7 +34,10 @@
         selectAllText: 'Tout Sélectionner',
         deselectAllText: 'Tout Désélectionner',
         noResultsText: 'Aucun résultat trouvé',
-        itemsSelectedText: 'éléments sélectionnés'
+        itemsSelectedText: 'éléments sélectionnés',
+        paginationPrevText: 'Précédent',
+        paginationNextText: 'Suivant',
+        paginationInfoText: 'Page {current} sur {total}'
     };
 
     // Note: This file only registers the French translation.

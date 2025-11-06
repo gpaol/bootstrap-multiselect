@@ -43,6 +43,12 @@ namespace BootstrapMultiSelectExamples.Models
         public List<string>? SelectedLanguages { get; set; }
 
         /// <summary>
+        /// Gets or sets the selected cities (with pagination)
+        /// </summary>
+        [Display(Name = "Select Cities")]
+        public List<string>? SelectedCities { get; set; }
+
+        /// <summary>
         /// Gets or sets the user's name
         /// </summary>
         [Display(Name = "Your Name")]

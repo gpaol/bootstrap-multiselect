@@ -8,9 +8,10 @@ Complete examples for using **Bootstrap MultiSelect MVC Library** with **ASP.NET
 2. [Basic TagHelper Usage](#basic-taghelper-usage)
 3. [Complete Form Example](#complete-form-example)
 4. [Configuration Options](#configuration-options)
-5. [Validation](#validation)
-6. [Localization](#localization)
-7. [Advanced Scenarios](#advanced-scenarios)
+5. [Pagination](#pagination)
+6. [Validation](#validation)
+7. [Localization](#localization)
+8. [Advanced Scenarios](#advanced-scenarios)
 
 ---
 
@@ -355,6 +356,12 @@ namespace BootstrapMultiSelectExamples.Controllers
              show-select-all="true"
              select-all-text="Select All"
              deselect-all-text="Deselect All"
+             enable-pagination="false"
+             items-per-page="10"
+             pagination-position="bottom"
+             pagination-prev-text="Previous"
+             pagination-next-text="Next"
+             pagination-info-text="Page {current} of {total}"
              lang="en">
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
@@ -379,6 +386,9 @@ public class MyViewModel
         Placeholder = "Choose options...",
         EnableSearch = true,
         ShowSelectAll = true,
+        EnablePagination = true,
+        ItemsPerPage = 10,
+        PaginationPosition = "bottom",
         Lang = "en"
     };
 }
@@ -394,6 +404,176 @@ public class MyViewModel
     <option value="2">Option 2</option>
 </multiselect>
 ```
+
+---
+
+## Pagination
+
+For long lists of options, enable pagination to improve performance and user experience.
+
+### Basic Pagination
+
+**Model:**
+
+```csharp
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+public class CitySelectionViewModel
+{
+    [Display(Name = "Select Cities")]
+    public List<string> SelectedCities { get; set; } = new();
+}
+```
+
+**Controller:**
+
+```csharp
+public IActionResult SelectCities()
+{
+    var cities = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "tokyo", Text = "Tokyo" },
+        new SelectListItem { Value = "delhi", Text = "Delhi" },
+        new SelectListItem { Value = "shanghai", Text = "Shanghai" },
+        new SelectListItem { Value = "saopaulo", Text = "São Paulo" },
+        new SelectListItem { Value = "mumbai", Text = "Mumbai" },
+        new SelectListItem { Value = "beijing", Text = "Beijing" },
+        new SelectListItem { Value = "cairo", Text = "Cairo" },
+        new SelectListItem { Value = "dhaka", Text = "Dhaka" },
+        new SelectListItem { Value = "mexico", Text = "Mexico City" },
+        new SelectListItem { Value = "osaka", Text = "Osaka" },
+        // ... add more cities
+    };
+    
+    ViewBag.Cities = cities;
+    return View(new CitySelectionViewModel());
+}
+```
+
+**View:**
+
+```cshtml
+@model CitySelectionViewModel
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="SelectedCities" class="form-label"></label>
+        <multiselect asp-for="SelectedCities" 
+                     asp-items="ViewBag.Cities"
+                     placeholder="Select cities..."
+                     enable-search="true"
+                     enable-pagination="true"
+                     items-per-page="8"
+                     pagination-position="bottom">
+        </multiselect>
+        <span asp-validation-for="SelectedCities" class="text-danger"></span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+```
+
+### Pagination Configuration
+
+```cshtml
+<multiselect asp-for="SelectedItems" 
+             asp-items="ViewBag.Items"
+             enable-pagination="true"
+             items-per-page="10"
+             pagination-position="bottom"
+             pagination-prev-text="Previous"
+             pagination-next-text="Next"
+             pagination-info-text="Page {current} of {total}">
+</multiselect>
+```
+
+### Pagination Position Options
+
+**Bottom Only (Default):**
+
+```cshtml
+<multiselect asp-for="Items" 
+             asp-items="ViewBag.Items"
+             enable-pagination="true"
+             items-per-page="8"
+             pagination-position="bottom">
+</multiselect>
+```
+
+**Top Only:**
+
+```cshtml
+<multiselect asp-for="Items" 
+             asp-items="ViewBag.Items"
+             enable-pagination="true"
+             items-per-page="8"
+             pagination-position="top">
+</multiselect>
+```
+
+**Both Top and Bottom:**
+
+```cshtml
+<multiselect asp-for="Items" 
+             asp-items="ViewBag.Items"
+             enable-pagination="true"
+             items-per-page="8"
+             pagination-position="both">
+</multiselect>
+```
+
+### Using Configuration Object
+
+```csharp
+public class MyViewModel
+{
+    public List<string> SelectedItems { get; set; } = new();
+    
+    public MultiSelectConfig PaginationConfig { get; set; } = new()
+    {
+        Placeholder = "Select items...",
+        EnableSearch = true,
+        EnablePagination = true,
+        ItemsPerPage = 10,
+        PaginationPosition = "bottom",
+        PaginationPrevText = "Previous",
+        PaginationNextText = "Next",
+        PaginationInfoText = "Page {current} of {total}"
+    };
+}
+```
+
+```cshtml
+@model MyViewModel
+
+<multiselect asp-for="SelectedItems" 
+             asp-items="ViewBag.Items"
+             config="@Model.PaginationConfig">
+</multiselect>
+```
+
+### Localized Pagination
+
+When using localization, pagination texts are automatically translated:
+
+```cshtml
+<!-- Include Italian language file -->
+<script src="~/js/langs/jquery-bootstrap-multiselect.it.js"></script>
+
+<!-- Pagination texts will be in Italian -->
+<multiselect asp-for="SelectedCities" 
+             asp-items="ViewBag.Cities"
+             lang="it"
+             enable-pagination="true"
+             items-per-page="8">
+</multiselect>
+```
+
+Italian pagination will show:
+
+- Previous: "Precedente"
+- Next: "Successivo"
+- Info: "Pagina {current} di {total}"
 
 ---
 

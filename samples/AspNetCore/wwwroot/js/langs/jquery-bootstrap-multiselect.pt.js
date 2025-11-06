@@ -1,5 +1,5 @@
 /*!
- * Bootstrap MultiSelect - Portuguese (Português) Localization v1.1.0
+ * Bootstrap MultiSelect - Portuguese (Português) Localization v1.2.0
  * 
  * This file provides Portuguese language support for the Bootstrap MultiSelect plugin.
  * Load this file after jquery-bootstrap-multiselect.js to enable Portuguese localization.
@@ -34,7 +34,10 @@
         selectAllText: 'Selecionar Tudo',
         deselectAllText: 'Desmarcar Tudo',
         noResultsText: 'Nenhum resultado encontrado',
-        itemsSelectedText: 'itens selecionados'
+        itemsSelectedText: 'itens selecionados',
+        paginationPrevText: 'Anterior',
+        paginationNextText: 'Próximo',
+        paginationInfoText: 'Página {current} de {total}'
     };
 
     // Note: This file only registers the Portuguese translation.

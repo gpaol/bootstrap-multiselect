@@ -61,7 +61,7 @@ A professional introduction to Bootstrap MultiSelect with:
 
 #### Pure jQuery Plugin Demonstrations
 
-8 interactive examples showing plugin capabilities:
+9 interactive examples showing plugin capabilities:
 
 1. **Basic MultiSelect** - Simple multi-select with pre-selected options
 2. **Max Selection Limit** - Restrict number of selections
@@ -70,7 +70,8 @@ A professional introduction to Bootstrap MultiSelect with:
 5. **Programmatic Control** - JavaScript API usage
 6. **Pre-selected Values** - Default selections
 7. **Disabled Options** - Non-selectable items
-8. **Localization** - Multi-language support (IT, ES, FR, DE, PT)
+8. **Pagination** - Paginate long lists for better performance
+9. **Localization** - Multi-language support (IT, ES, FR, DE, PT)
 
 **Plus:**
 
@@ -112,6 +113,8 @@ Production-ready form with complete validation:
 3. Technologies (OptGroups)
 4. Departments (Pre-selected values)
 5. Languages (Disabled options)
+6. Cities (Pagination with search)
+7. Localization (Multi-language support)
 
 **Technology:**
 
@@ -181,6 +184,7 @@ Production-ready form with complete validation:
 
 - ✅ Data attribute configuration
 - ✅ Search and filtering
+- ✅ Pagination for long lists
 - ✅ Select All / Deselect All
 - ✅ Maximum selection limits
 - ✅ OptGroups support

@@ -108,6 +108,17 @@ namespace BootstrapMultiSelect.MVC.HtmlHelpers
             if (!string.IsNullOrEmpty(config.Lang))
                 sb.Append($"data-lang=\"{config.Lang}\" ");
 
+            // Pagination attributes
+            if (config.EnablePagination)
+            {
+                sb.Append("data-enable-pagination=\"true\" ");
+                sb.Append($"data-items-per-page=\"{config.ItemsPerPage}\" ");
+                sb.Append($"data-pagination-prev-text=\"{config.PaginationPrevText}\" ");
+                sb.Append($"data-pagination-next-text=\"{config.PaginationNextText}\" ");
+                sb.Append($"data-pagination-info-text=\"{config.PaginationInfoText}\" ");
+                sb.Append($"data-pagination-position=\"{config.PaginationPosition}\" ");
+            }
+
             sb.AppendLine(">");
 
             // Group items by Group property
@@ -205,6 +216,17 @@ namespace BootstrapMultiSelect.MVC.HtmlHelpers
 
             if (!string.IsNullOrEmpty(config.Lang))
                 sb.Append($"data-lang=\"{config.Lang}\" ");
+
+            // Pagination attributes
+            if (config.EnablePagination)
+            {
+                sb.Append("data-enable-pagination=\"true\" ");
+                sb.Append($"data-items-per-page=\"{config.ItemsPerPage}\" ");
+                sb.Append($"data-pagination-prev-text=\"{config.PaginationPrevText}\" ");
+                sb.Append($"data-pagination-next-text=\"{config.PaginationNextText}\" ");
+                sb.Append($"data-pagination-info-text=\"{config.PaginationInfoText}\" ");
+                sb.Append($"data-pagination-position=\"{config.PaginationPosition}\" ");
+            }
 
             sb.AppendLine(">");
 

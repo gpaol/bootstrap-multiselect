@@ -1,5 +1,5 @@
 /*!
- * Bootstrap MultiSelect - German (Deutsch) Localization v1.1.0
+ * Bootstrap MultiSelect - German (Deutsch) Localization v1.2.0
  * 
  * This file provides German language support for the Bootstrap MultiSelect plugin.
  * Load this file after jquery-bootstrap-multiselect.js to enable German localization.
@@ -34,7 +34,10 @@
         selectAllText: 'Alle Auswählen',
         deselectAllText: 'Alle Abwählen',
         noResultsText: 'Keine Ergebnisse gefunden',
-        itemsSelectedText: 'Elemente ausgewählt'
+        itemsSelectedText: 'Elemente ausgewählt',
+        paginationPrevText: 'Zurück',
+        paginationNextText: 'Weiter',
+        paginationInfoText: 'Seite {current} von {total}'
     };
 
     // Note: This file only registers the German translation.

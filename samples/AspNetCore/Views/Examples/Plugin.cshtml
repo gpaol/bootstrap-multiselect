@@ -418,6 +418,126 @@ $('#element').bootstrapMultiSelect({
         </div>
     </div>
 
+    <!-- Example 9: Pagination -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h3><i class="bi bi-9-circle-fill text-success"></i> Pagination</h3>
+            <p class="text-muted">Navigate through large lists with pagination controls</p>
+
+            <select id="pagination-multiselect" data-toggle="bootstrap-multiselect"
+                data-placeholder="Select countries..." data-theme="success" data-width="100%"
+                data-enable-pagination="true" data-items-per-page="10" data-search="true">
+                <option value="us">United States</option>
+                <option value="uk">United Kingdom</option>
+                <option value="ca">Canada</option>
+                <option value="au">Australia</option>
+                <option value="de">Germany</option>
+                <option value="fr">France</option>
+                <option value="it">Italy</option>
+                <option value="es">Spain</option>
+                <option value="jp">Japan</option>
+                <option value="cn">China</option>
+                <option value="br">Brazil</option>
+                <option value="mx">Mexico</option>
+                <option value="ru">Russia</option>
+                <option value="in">India</option>
+                <option value="kr">South Korea</option>
+                <option value="nl">Netherlands</option>
+                <option value="se">Sweden</option>
+                <option value="ch">Switzerland</option>
+                <option value="pl">Poland</option>
+                <option value="be">Belgium</option>
+                <option value="at">Austria</option>
+                <option value="no">Norway</option>
+                <option value="dk">Denmark</option>
+                <option value="fi">Finland</option>
+                <option value="ie">Ireland</option>
+            </select>
+
+            <div class="alert alert-info mt-3">
+                <i class="bi bi-info-circle"></i>
+                <small>
+                    <strong>Pagination Features:</strong><br>
+                    • Navigate through items using Previous/Next buttons<br>
+                    • Shows current page and total pages<br>
+                    • Works with search filtering<br>
+                    • Select All selects only items on current page<br>
+                    • Control position: 'bottom' (default), 'top', or 'both'
+                </small>
+            </div>
+
+            <div class="mt-3">
+                <p class="small mb-2"><strong>Try different positions:</strong></p>
+                <div class="btn-group btn-group-sm" role="group" id="pagination-position-buttons">
+                    <button type="button" class="btn btn-outline-secondary active" data-position="bottom"
+                        onclick="setPaginationPosition('pagination-multiselect', 'bottom')">Bottom Only</button>
+                    <button type="button" class="btn btn-outline-secondary" data-position="top"
+                        onclick="setPaginationPosition('pagination-multiselect', 'top')">Top Only</button>
+                    <button type="button" class="btn btn-outline-secondary" data-position="both"
+                        onclick="setPaginationPosition('pagination-multiselect', 'both')">Both</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Code Example</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;!-- Bottom only (default) --&gt;
+&lt;select data-toggle="bootstrap-multiselect"
+        data-enable-pagination="true"
+        data-items-per-page="5"&gt;
+    ...
+&lt;/select&gt;
+
+&lt;!-- Top only --&gt;
+&lt;select data-toggle="bootstrap-multiselect"
+        data-enable-pagination="true"
+        data-items-per-page="5"
+        data-pagination-position="top"&gt;
+    ...
+&lt;/select&gt;
+
+&lt;!-- Both top and bottom --&gt;
+&lt;select data-toggle="bootstrap-multiselect"
+        data-enable-pagination="true"
+        data-items-per-page="5"
+        data-pagination-position="both"&gt;
+    ...
+&lt;/select&gt;</code></pre>
+                    <h6 class="card-title mt-3">JavaScript Initialization</h6>
+                    <pre class="bg-light p-3 rounded"><code>$('#mySelect').bootstrapMultiSelect({
+    enablePagination: true,
+    itemsPerPage: 10,
+    paginationPrevText: 'Previous',
+    paginationNextText: 'Next',
+    paginationInfoText: 'Page {current} of {total}'
+});</code></pre>
+                    <h6 class="card-title mt-3">Pagination Options</h6>
+                    <ul class="small">
+                        <li><code>data-enable-pagination</code>: Enable/disable pagination (default: false)</li>
+                        <li><code>data-items-per-page</code>: Number of items per page (default: 10)</li>
+                        <li><code>data-pagination-position</code>: Where to show pagination controls - 'top', 'bottom',
+                            or 'both' (default: 'bottom')</li>
+                        <li><code>data-pagination-prev-text</code>: Text for Previous button</li>
+                        <li><code>data-pagination-next-text</code>: Text for Next button</li>
+                        <li><code>data-pagination-info-text</code>: Page info template (use {current} and {total}
+                            placeholders)</li>
+                    </ul>
+                    <h6 class="card-title mt-3">Localization Support</h6>
+                    <p class="small">Pagination text is automatically localized when you load a language file:</p>
+                    <ul class="small">
+                        <li>Italian (it): "Precedente" / "Successivo" / "Pagina {current} di {total}"</li>
+                        <li>Spanish (es): "Anterior" / "Siguiente" / "Página {current} de {total}"</li>
+                        <li>French (fr): "Précédent" / "Suivant" / "Page {current} sur {total}"</li>
+                        <li>German (de): "Zurück" / "Weiter" / "Seite {current} von {total}"</li>
+                        <li>Portuguese (pt): "Anterior" / "Próximo" / "Página {current} de {total}"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Available Options Table -->
     <div class="row mb-5">
         <div class="col-12">
@@ -524,6 +644,42 @@ $('#element').bootstrapMultiSelect({
                             <td>Text shown when 4+ items are selected (e.g., "4 items selected"). Perfect for
                                 internationalization (e.g., "elementi selezionati")</td>
                         </tr>
+                        <tr>
+                            <td><code>data-enable-pagination</code></td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>Enable/disable pagination for large lists</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-items-per-page</code></td>
+                            <td>number</td>
+                            <td>10</td>
+                            <td>Number of items to display per page when pagination is enabled</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-pagination-prev-text</code></td>
+                            <td>string</td>
+                            <td>"Previous"</td>
+                            <td>Text for the Previous page button</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-pagination-next-text</code></td>
+                            <td>string</td>
+                            <td>"Next"</td>
+                            <td>Text for the Next page button</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-pagination-info-text</code></td>
+                            <td>string</td>
+                            <td>"Page {current} of {total}"</td>
+                            <td>Template for page information text. Use {current} and {total} as placeholders</td>
+                        </tr>
+                        <tr>
+                            <td><code>data-pagination-position</code></td>
+                            <td>string</td>
+                            <td>"bottom"</td>
+                            <td>Position of pagination controls: 'top', 'bottom', or 'both'</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -603,6 +759,31 @@ $('#element').bootstrapMultiSelect({
         function clearColors() {
             $('#programmatic-multiselect').bootstrapMultiSelect('setSelectedValues', []);
             $('#color-output').html('<strong>Cleared all colors</strong>').show();
+        }
+
+        // Example 9: Pagination Position Control
+        function setPaginationPosition(elementId, position) {
+            // Get current selected values
+            var currentValues = $('#' + elementId).bootstrapMultiSelect('getSelectedValues');
+
+            // Destroy current instance
+            $('#' + elementId).bootstrapMultiSelect('destroy');
+
+            // Reinitialize with new pagination position
+            $('#' + elementId).bootstrapMultiSelect({
+                enablePagination: true,
+                itemsPerPage: 10,
+                search: true,
+                theme: 'success',
+                paginationPosition: position
+            });
+
+            // Restore selected values
+            $('#' + elementId).bootstrapMultiSelect('setSelectedValues', currentValues);
+
+            // Update active button state
+            $('#pagination-position-buttons button').removeClass('active');
+            $('#pagination-position-buttons button[data-position="' + position + '"]').addClass('active');
         }
     </script>
 }

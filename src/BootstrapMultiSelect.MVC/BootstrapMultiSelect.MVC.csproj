@@ -9,11 +9,11 @@
     
     <!-- NuGet Package Metadata -->
     <PackageId>BootstrapMultiSelect.MVC</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Authors>Paolo Gaetano</Authors>
     <Company>Paolo Gaetano</Company>
     <Product>Bootstrap MultiSelect for ASP.NET Core</Product>
-    <Description>Bootstrap 5 MultiSelect component for ASP.NET Core with TagHelper and HtmlHelper support. Includes embedded CSS/JS files, localization support (6 languages), and comprehensive form validation integration.</Description>
+    <Description>Bootstrap 5 MultiSelect component for ASP.NET Core with TagHelper and HtmlHelper support. Includes embedded CSS/JS files, localization support (6 languages), pagination functionality, and comprehensive form validation integration.</Description>
     <PackageTags>bootstrap;bootstrap5;multiselect;multi-select;aspnetcore;taghelper;htmlhelper;jquery;mvc;razor;form;validation;localization;i18n</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/gpaol/bootstrap-multiselect</PackageProjectUrl>

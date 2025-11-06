@@ -141,6 +141,42 @@ namespace BootstrapMultiSelect.MVC.TagHelpers
         public string? Lang { get; set; }
 
         /// <summary>
+        /// Gets or sets whether to enable pagination
+        /// </summary>
+        [HtmlAttributeName("enable-pagination")]
+        public bool EnablePagination { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets the number of items per page when pagination is enabled
+        /// </summary>
+        [HtmlAttributeName("items-per-page")]
+        public int ItemsPerPage { get; set; } = 10;
+
+        /// <summary>
+        /// Gets or sets the text for the Previous button in pagination
+        /// </summary>
+        [HtmlAttributeName("pagination-prev-text")]
+        public string PaginationPrevText { get; set; } = "Previous";
+
+        /// <summary>
+        /// Gets or sets the text for the Next button in pagination
+        /// </summary>
+        [HtmlAttributeName("pagination-next-text")]
+        public string PaginationNextText { get; set; } = "Next";
+
+        /// <summary>
+        /// Gets or sets the template for the pagination info text (e.g., "Page {current} of {total}")
+        /// </summary>
+        [HtmlAttributeName("pagination-info-text")]
+        public string PaginationInfoText { get; set; } = "Page {current} of {total}";
+
+        /// <summary>
+        /// Gets or sets the position of pagination controls: 'top', 'bottom', or 'both'
+        /// </summary>
+        [HtmlAttributeName("pagination-position")]
+        public string PaginationPosition { get; set; } = "bottom";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MultiSelectTagHelper"/> class
         /// </summary>
         /// <param name="htmlGenerator">The HTML generator instance for generating form elements</param>
@@ -283,6 +319,25 @@ namespace BootstrapMultiSelect.MVC.TagHelpers
 
             if (!string.IsNullOrEmpty(Lang))
                 output.Attributes.SetAttribute("data-lang", Lang);
+
+            // Pagination attributes
+            if (EnablePagination)
+            {
+                output.Attributes.SetAttribute("data-enable-pagination", "true");
+                output.Attributes.SetAttribute("data-items-per-page", ItemsPerPage);
+
+                if (!string.IsNullOrEmpty(PaginationPrevText))
+                    output.Attributes.SetAttribute("data-pagination-prev-text", PaginationPrevText);
+
+                if (!string.IsNullOrEmpty(PaginationNextText))
+                    output.Attributes.SetAttribute("data-pagination-next-text", PaginationNextText);
+
+                if (!string.IsNullOrEmpty(PaginationInfoText))
+                    output.Attributes.SetAttribute("data-pagination-info-text", PaginationInfoText);
+
+                if (!string.IsNullOrEmpty(PaginationPosition))
+                    output.Attributes.SetAttribute("data-pagination-position", PaginationPosition);
+            }
 
             // Build options
             if (Items != null)

@@ -1,5 +1,5 @@
 /*!
- * Bootstrap MultiSelect - Italian (Italiano) Localization v1.1.0
+ * Bootstrap MultiSelect - Italian (Italiano) Localization v1.2.0
  * 
  * This file provides Italian language support for the Bootstrap MultiSelect plugin.
  * Load this file after jquery-bootstrap-multiselect.js to enable Italian localization.
@@ -58,7 +58,24 @@
          * Text shown when multiple items (4+) are selected
          * Example: "5 elementi selezionati"
          */
-        itemsSelectedText: 'elementi selezionati'
+        itemsSelectedText: 'elementi selezionati',
+
+        /**
+         * Text for the "Previous" pagination button
+         */
+        paginationPrevText: 'Precedente',
+
+        /**
+         * Text for the "Next" pagination button
+         */
+        paginationNextText: 'Successivo',
+
+        /**
+         * Information text showing current page and total pages
+         * {current} will be replaced with current page number
+         * {total} will be replaced with total number of pages
+         */
+        paginationInfoText: 'Pagina {current} di {total}'
     };
 
     // Note: This file only registers the Italian translation.

@@ -12,10 +12,11 @@ Complete examples for using **Bootstrap MultiSelect** as a pure **jQuery plugin*
 6. [Example 5: Grouped Options](#example-5-grouped-options)
 7. [Example 6: Custom Placeholder](#example-6-custom-placeholder)
 8. [Example 7: Disabled State](#example-7-disabled-state)
-9. [Example 8: All Features Combined](#example-8-all-features-combined)
-10. [Localization Examples](#localization-examples)
-11. [Event Handling](#event-handling)
-12. [Dynamic Updates](#dynamic-updates)
+9. [Example 8: Pagination](#example-8-pagination)
+10. [Example 9: All Features Combined](#example-9-all-features-combined)
+11. [Localization Examples](#localization-examples)
+12. [Event Handling](#event-handling)
+13. [Dynamic Updates](#dynamic-updates)
 
 ---
 
@@ -291,14 +292,69 @@ $(document).ready(function() {
 
 ---
 
-## Example 8: All Features Combined
+## Example 8: Pagination
+
+Paginate long lists of options for better performance and user experience.
+
+```html
+<div class="mb-3">
+    <label for="select8" class="form-label">Countries (Paginated)</label>
+    <select id="select8" class="form-select" multiple>
+        <option value="usa">United States</option>
+        <option value="canada">Canada</option>
+        <option value="mexico">Mexico</option>
+        <option value="uk">United Kingdom</option>
+        <option value="france">France</option>
+        <option value="germany">Germany</option>
+        <option value="italy">Italy</option>
+        <option value="spain">Spain</option>
+        <option value="japan">Japan</option>
+        <option value="china">China</option>
+        <option value="india">India</option>
+        <option value="brazil">Brazil</option>
+        <option value="australia">Australia</option>
+        <option value="russia">Russia</option>
+        <option value="southkorea">South Korea</option>
+        <!-- Add more options as needed -->
+    </select>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#select8').bootstrapMultiSelect({
+        placeholder: 'Select countries...',
+        enableSearch: true,
+        enablePagination: true,
+        itemsPerPage: 5,
+        paginationPosition: 'bottom' // 'top', 'bottom', or 'both'
+    });
+});
+</script>
+```
+
+### Pagination Configuration Options
+
+```javascript
+$('#mySelect').bootstrapMultiSelect({
+    enablePagination: true,           // Enable pagination
+    itemsPerPage: 10,                 // Items per page (default: 10)
+    paginationPosition: 'bottom',     // 'top', 'bottom', or 'both' (default: 'bottom')
+    paginationPrevText: 'Previous',   // Previous button text
+    paginationNextText: 'Next',       // Next button text
+    paginationInfoText: 'Page {current} of {total}' // Info text template
+});
+```
+
+---
+
+## Example 9: All Features Combined
 
 Complete example with all features enabled.
 
 ```html
 <div class="mb-3">
-    <label for="select8" class="form-label">Complete Example</label>
-    <select id="select8" class="form-select" multiple>
+    <label for="select9" class="form-label">Complete Example</label>
+    <select id="select9" class="form-select" multiple>
         <optgroup label="Programming Languages">
             <option value="csharp">C#</option>
             <option value="java">Java</option>
@@ -322,13 +378,16 @@ Complete example with all features enabled.
 
 <script>
 $(document).ready(function() {
-    $('#select8').bootstrapMultiSelect({
+    $('#select9').bootstrapMultiSelect({
         placeholder: 'Select your tech stack...',
         enableSearch: true,
         searchPlaceholder: 'Search technologies...',
         showSelectAll: true,
         selectAllText: 'Select All Technologies',
-        deselectAllText: 'Clear Selection'
+        deselectAllText: 'Clear Selection',
+        enablePagination: true,
+        itemsPerPage: 8,
+        paginationPosition: 'bottom'
     });
 });
 </script>
@@ -624,6 +683,14 @@ $('#mySelect').bootstrapMultiSelect({
     // Feature toggles
     enableSearch: true,
     showSelectAll: true,
+    
+    // Pagination options
+    enablePagination: false,
+    itemsPerPage: 10,
+    paginationPosition: 'bottom', // 'top', 'bottom', or 'both'
+    paginationPrevText: 'Previous',
+    paginationNextText: 'Next',
+    paginationInfoText: 'Page {current} of {total}',
     
     // Localization
     lang: 'en', // or 'it', 'es', 'fr', etc.

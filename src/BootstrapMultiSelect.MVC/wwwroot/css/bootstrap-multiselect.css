@@ -1,5 +1,5 @@
 /*!
- * Bootstrap MultiSelect - CSS Styles v1.1.0
+ * Bootstrap MultiSelect - CSS Styles v1.2.0
  * 
  * Additional styles and enhancements for the Bootstrap MultiSelect plugin
  * 
@@ -61,24 +61,6 @@
     background-color: #ffffff !important;
 }
 
-.bs-multiselect-container .dropdown-menu::-webkit-scrollbar {
-    width: 8px;
-}
-
-.bs-multiselect-container .dropdown-menu::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.bs-multiselect-container .dropdown-menu::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-.bs-multiselect-container .dropdown-menu::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
 /* jQuery Validation - Show green border for valid fields */
 form .bs-multiselect-container > .is-valid  {
   border-color: #198754;
@@ -94,11 +76,7 @@ form .bs-multiselect-container > .is-valid  {
   box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
 }
 
-/* Firefox */
-.bs-multiselect-container .dropdown-menu {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
-}
+
 
 /* ==========================================================================
    Search Input Styles
@@ -123,7 +101,6 @@ form .bs-multiselect-container > .is-valid  {
    ========================================================================== */
 
 .bs-multiselect-options {
-    max-height: 250px;
     background-color: #ffffff;
 }
 
@@ -246,6 +223,63 @@ form .bs-multiselect-container > .is-valid  {
     padding: 1rem;
     color: #6c757d;
     font-style: italic;
+}
+
+/* ==========================================================================
+   Pagination Controls
+   ========================================================================== */
+
+.bs-multiselect-pagination {
+    padding: 0.5rem 0;
+    margin: 0;
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    flex-shrink: 0; /* Prevent pagination from being compressed */
+}
+
+/* Top pagination */
+.bs-multiselect-pagination.pagination-top {
+    border-top: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Bottom pagination */
+.bs-multiselect-pagination.pagination-bottom {
+    border-top: 1px solid #dee2e6;
+    border-bottom: none;
+}
+
+/* When pagination is on both sides */
+.bs-multiselect-pagination.pagination-top + .bs-multiselect-options {
+    border-top: 1px solid #dee2e6;
+}
+
+.bs-multiselect-prev-page,
+.bs-multiselect-next-page {
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.75rem;
+    transition: all 0.15s ease-in-out;
+    min-width: 80px;
+}
+
+.bs-multiselect-prev-page:hover:not(:disabled),
+.bs-multiselect-next-page:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bs-multiselect-prev-page:disabled,
+.bs-multiselect-next-page:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.bs-multiselect-page-info {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #495057;
+    padding: 0 0.5rem;
+    white-space: nowrap;
 }
 
 /* ==========================================================================

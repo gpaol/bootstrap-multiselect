@@ -144,6 +144,7 @@ namespace BootstrapMultiSelectExamples.Controllers
             ViewBag.Technologies = GetTechnologies();
             ViewBag.Departments = GetDepartments();
             ViewBag.Languages = GetLanguages();
+            ViewBag.Cities = GetCities();
         }
 
         /// <summary>
@@ -271,6 +272,67 @@ namespace BootstrapMultiSelectExamples.Controllers
                 new SelectListItem { Value = "ko", Text = "Korean" },
                 new SelectListItem { Value = "ar", Text = "Arabic" },
                 new SelectListItem { Value = "hi", Text = "Hindi", Disabled = true }
+            };
+        }
+
+        /// <summary>
+        /// Gets the list of major world cities (for pagination example)
+        /// </summary>
+        /// <returns>List of SelectListItem</returns>
+        private List<SelectListItem> GetCities()
+        {
+            return new List<SelectListItem>
+            {
+                new SelectListItem { Value = "tokyo", Text = "Tokyo" },
+                new SelectListItem { Value = "delhi", Text = "Delhi" },
+                new SelectListItem { Value = "shanghai", Text = "Shanghai" },
+                new SelectListItem { Value = "saopaulo", Text = "São Paulo" },
+                new SelectListItem { Value = "mumbai", Text = "Mumbai" },
+                new SelectListItem { Value = "beijing", Text = "Beijing" },
+                new SelectListItem { Value = "cairo", Text = "Cairo" },
+                new SelectListItem { Value = "dhaka", Text = "Dhaka" },
+                new SelectListItem { Value = "mexicocity", Text = "Mexico City" },
+                new SelectListItem { Value = "osaka", Text = "Osaka" },
+                new SelectListItem { Value = "karachi", Text = "Karachi" },
+                new SelectListItem { Value = "chongqing", Text = "Chongqing" },
+                new SelectListItem { Value = "istanbul", Text = "Istanbul" },
+                new SelectListItem { Value = "buenosaires", Text = "Buenos Aires" },
+                new SelectListItem { Value = "kolkata", Text = "Kolkata" },
+                new SelectListItem { Value = "lagos", Text = "Lagos" },
+                new SelectListItem { Value = "kinshasa", Text = "Kinshasa" },
+                new SelectListItem { Value = "manila", Text = "Manila" },
+                new SelectListItem { Value = "rio", Text = "Rio de Janeiro" },
+                new SelectListItem { Value = "guangzhou", Text = "Guangzhou" },
+                new SelectListItem { Value = "lahore", Text = "Lahore" },
+                new SelectListItem { Value = "bangalore", Text = "Bangalore" },
+                new SelectListItem { Value = "moscow", Text = "Moscow" },
+                new SelectListItem { Value = "chennai", Text = "Chennai" },
+                new SelectListItem { Value = "paris", Text = "Paris" },
+                new SelectListItem { Value = "bogota", Text = "Bogotá" },
+                new SelectListItem { Value = "jakarta", Text = "Jakarta" },
+                new SelectListItem { Value = "lima", Text = "Lima" },
+                new SelectListItem { Value = "bangkok", Text = "Bangkok" },
+                new SelectListItem { Value = "seoul", Text = "Seoul" },
+                new SelectListItem { Value = "nagoya", Text = "Nagoya" },
+                new SelectListItem { Value = "hyderabad", Text = "Hyderabad" },
+                new SelectListItem { Value = "london", Text = "London" },
+                new SelectListItem { Value = "tehran", Text = "Tehran" },
+                new SelectListItem { Value = "chicago", Text = "Chicago" },
+                new SelectListItem { Value = "chengdu", Text = "Chengdu" },
+                new SelectListItem { Value = "nanjing", Text = "Nanjing" },
+                new SelectListItem { Value = "wuhan", Text = "Wuhan" },
+                new SelectListItem { Value = "hochiminh", Text = "Ho Chi Minh City" },
+                new SelectListItem { Value = "luanda", Text = "Luanda" },
+                new SelectListItem { Value = "ahmedabad", Text = "Ahmedabad" },
+                new SelectListItem { Value = "kualalumpur", Text = "Kuala Lumpur" },
+                new SelectListItem { Value = "xian", Text = "Xi'an" },
+                new SelectListItem { Value = "hongkong", Text = "Hong Kong" },
+                new SelectListItem { Value = "dongguan", Text = "Dongguan" },
+                new SelectListItem { Value = "hangzhou", Text = "Hangzhou" },
+                new SelectListItem { Value = "foshan", Text = "Foshan" },
+                new SelectListItem { Value = "shenyang", Text = "Shenyang" },
+                new SelectListItem { Value = "riyadh", Text = "Riyadh" },
+                new SelectListItem { Value = "baghdad", Text = "Baghdad" }
             };
         }
     }

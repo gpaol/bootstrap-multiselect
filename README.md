@@ -16,6 +16,7 @@ Transform standard `<select>` elements into advanced multi-select dropdowns with
 - ✅ **Bootstrap 5 Native** - Built with official Bootstrap components
 - ✅ **Fully Responsive** - Works on all devices and screen sizes
 - ✅ **Search & Filter** - Built-in search functionality
+- ✅ **Pagination** - Paginate long lists for better performance
 - ✅ **Select All/Deselect All** - Convenient bulk selection buttons
 - ✅ **OptGroup Support** - Organize options into categories
 - ✅ **Localization** - Multi-language support (EN, IT, ES, FR, DE, PT)
@@ -41,10 +42,10 @@ npm install bootstrap-multiselect
 
 ```html
 <!-- CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-multiselect@1.1.0/dist/css/bootstrap-multiselect.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@gpaol/bootstrap-multiselect@1.2.0/dist/css/bootstrap-multiselect.css" rel="stylesheet">
 
 <!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-multiselect@1.1.0/dist/js/bootstrap-multiselect.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@gpaol/bootstrap-multiselect@1.2.0/dist/js/bootstrap-multiselect.js"></script>
 ```
 
 ### For ASP.NET Core / .NET Framework
@@ -70,7 +71,7 @@ Install-Package BootstrapMultiSelect.MVC
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap MultiSelect CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-multiselect@1.1.0/dist/css/bootstrap-multiselect.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@gpaol/bootstrap-multiselect@1.2.0/dist/css/bootstrap-multiselect.css" rel="stylesheet">
 </head>
 <body>
     <select id="mySelect" multiple>
@@ -84,14 +85,16 @@ Install-Package BootstrapMultiSelect.MVC
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Bootstrap MultiSelect JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-multiselect@1.1.0/dist/js/bootstrap-multiselect.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@gpaol/bootstrap-multiselect@1.2.0/dist/js/bootstrap-multiselect.js"></script>
     
     <script>
         $(document).ready(function() {
             $('#mySelect').bootstrapMultiSelect({
                 placeholder: 'Select items...',
                 enableSearch: true,
-                showSelectAll: true
+                showSelectAll: true,
+                enablePagination: true,
+                itemsPerPage: 10
             });
         });
     </script>

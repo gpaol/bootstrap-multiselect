@@ -45,10 +45,10 @@ npm install @gpaol/bootstrap-multiselect
 
 ```html
 <!-- CSS -->
-<link href="https://cdn.jsdelivr.net/npm/@gpaol/bootstrap-multiselect@1.1.0/src/css/bootstrap-multiselect.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@gpaol/bootstrap-multiselect@1.2.0/src/css/bootstrap-multiselect.min.css" rel="stylesheet">
 
 <!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/@gpaol/bootstrap-multiselect@1.1.0/src/js/bootstrap-multiselect.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@gpaol/bootstrap-multiselect@1.2.0/src/js/bootstrap-multiselect.min.js"></script>
 ```
 
 ## 📖 Usage
@@ -77,7 +77,9 @@ After installing via npm, you can import the files in your project:
         $('#mySelect').bootstrapMultiSelect({
             placeholder: 'Select items...',
             enableSearch: true,
-            showSelectAll: true
+            showSelectAll: true,
+            enablePagination: true,
+            itemsPerPage: 10
         });
     </script>
 </body>
@@ -138,6 +140,7 @@ For more details, see the [Localization Guide](https://github.com/gpaol/bootstra
 - ✅ **Bootstrap 5 Integration**: Full compatibility with Bootstrap 5
 - ✅ **Search & Filtering**: Built-in search functionality
 - ✅ **Select All**: Convenient select/deselect all options
+- ✅ **Pagination**: Paginate long lists for better performance
 - ✅ **Grouped Options**: Support for optgroup elements
 - ✅ **Localization**: Multiple language support (DE, ES, FR, IT, PT)
 - ✅ **Responsive Design**: Works seamlessly on all devices

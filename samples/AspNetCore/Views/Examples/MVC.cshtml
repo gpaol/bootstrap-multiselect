@@ -142,9 +142,34 @@
                             </div>
                         </div>
 
-                        <!-- Example 6: MultiSelect with Localization -->
+                        <!-- Example 6: MultiSelect with Pagination -->
                         <div class="mb-4">
-                            <h6 class="text-primary"><i class="bi bi-6-circle"></i> MultiSelect with Italian Localization
+                            <h6 class="text-primary"><i class="bi bi-6-circle"></i> MultiSelect with Pagination
+                            </h6>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label asp-for="SelectedCities" class="form-label"></label>
+                                <multiselect asp-for="SelectedCities" asp-items="ViewBag.Cities"
+                                    placeholder="Select cities..." 
+                                    search="true" 
+                                    select-all="true" 
+                                    theme="info"
+                                    enable-pagination="true"
+                                    items-per-page="8"
+                                    pagination-position="bottom"
+                                    max-height="400px"></multiselect>
+                                <span asp-validation-for="SelectedCities" class="text-danger"></span>
+                                <small class="form-text text-muted">
+                                    <i class="bi bi-file-earmark-break"></i> Navigate through many cities using pagination (8 items per page).
+                                    Pagination position: bottom (can also be 'top' or 'both').
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Example 7: MultiSelect with Localization -->
+                        <div class="mb-4">
+                            <h6 class="text-primary"><i class="bi bi-7-circle"></i> MultiSelect with Italian Localization
                             </h6>
                             <hr />
 

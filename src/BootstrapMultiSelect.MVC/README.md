@@ -209,6 +209,12 @@ Then use in your views:
 | `max-height` | string | "300px" | Max dropdown height |
 | `items-selected-text` | string | "items selected" | Text for multiple selection count |
 | `lang` | string | null | Language code (e.g., "it", "es", "fr") |
+| `enable-pagination` | bool | false | Enable pagination for long lists |
+| `items-per-page` | int | 10 | Number of items per page |
+| `pagination-position` | string | "bottom" | Pagination position ("top", "bottom", "both") |
+| `pagination-prev-text` | string | "Previous" | Previous button text |
+| `pagination-next-text` | string | "Next" | Next button text |
+| `pagination-info-text` | string | "Page {current} of {total}" | Pagination info template |
 
 ### HTML Helper
 
@@ -357,6 +363,33 @@ var model = new MyViewModel
 {
     MaxSelection = 3,
     Placeholder = "Select up to 3 items..."
+})
+```
+
+### With Pagination
+
+**Tag Helper:**
+
+```html
+<multiselect asp-for="SelectedCities" 
+             asp-items="ViewBag.Cities"
+             placeholder="Select cities..."
+             enable-search="true"
+             enable-pagination="true"
+             items-per-page="8"
+             pagination-position="bottom" />
+```
+
+**HTML Helper:**
+
+```csharp
+@Html.MultiSelectFor(m => m.SelectedCities, ViewBag.Cities, new MultiSelectConfig
+{
+    Placeholder = "Select cities...",
+    EnableSearch = true,
+    EnablePagination = true,
+    ItemsPerPage = 8,
+    PaginationPosition = "bottom"
 })
 ```
 

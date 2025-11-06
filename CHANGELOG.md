@@ -5,6 +5,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-11-06
+
+### Added
+
+- **Pagination functionality** for large lists with the following options:
+  - `enablePagination`: Enable/disable pagination (default: false)
+  - `itemsPerPage`: Number of items per page (default: 10)
+  - `paginationPosition`: Position of pagination controls - 'top', 'bottom', or 'both' (default: 'bottom')
+  - `paginationPrevText`: Text for previous button (default: 'Previous')
+  - `paginationNextText`: Text for next button (default: 'Next')
+  - `paginationInfoText`: Template for page info (default: 'Page {current} of {total}')
+- Pagination support in ASP.NET Core TagHelper with new attributes:
+  - `enable-pagination`
+  - `items-per-page`
+  - `pagination-position`
+  - `pagination-prev-text`
+  - `pagination-next-text`
+  - `pagination-info-text`
+- Pagination support in ASP.NET Core HtmlHelper for both `MultiSelectFor` and `MultiSelect` methods
+- Updated all language files (IT, ES, FR, DE, PT) with pagination translations
+- Comprehensive pagination examples in both Plugin and MVC documentation
+- Example implementation with 50 cities demonstrating pagination functionality
+
+### Changed
+
+- Improved CSS layout system for better pagination positioning
+- Optimized dropdown menu structure to prevent scrollbar conflicts
+- Enhanced responsive behavior for pagination controls
+
+### Fixed
+
+- Resolved double scrollbar issue with pagination enabled
+- Fixed pagination bottom positioning to align correctly at the end of dropdown
+- Corrected CSS overflow handling for proper scroll behavior
+
+### Documentation
+
+- Updated PLUGIN-EXAMPLES.md with pagination example (Example 8)
+- Updated MVC-EXAMPLES.md with complete pagination section
+- Updated all README files with pagination feature documentation
+- Added pagination feature to main README features list
+
 ## [1.1.0] - 2025-11-03
 
 ### Added

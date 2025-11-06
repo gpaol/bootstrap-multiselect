@@ -59,7 +59,10 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(0, 0, 0, 0.15);
     background-color: #ffffff !important;
+    overflow: visible; /* Allow content to determine height */
 }
+
+/* Scrollbar styling moved to .bs-multiselect-options */
 
 /* jQuery Validation - Show green border for valid fields */
 form .bs-multiselect-container > .is-valid  {
@@ -76,7 +79,7 @@ form .bs-multiselect-container > .is-valid  {
   box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
 }
 
-
+/* Firefox - scrollbar styling removed from dropdown-menu */
 
 /* ==========================================================================
    Search Input Styles
@@ -101,7 +104,32 @@ form .bs-multiselect-container > .is-valid  {
    ========================================================================== */
 
 .bs-multiselect-options {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: #ffffff;
+    /* Custom scrollbar - Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+/* Custom scrollbar - Webkit (Chrome, Safari, Edge) */
+.bs-multiselect-options::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bs-multiselect-options::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.bs-multiselect-options::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.bs-multiselect-options::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .bs-multiselect-option {
@@ -233,25 +261,16 @@ form .bs-multiselect-container > .is-valid  {
     padding: 0.5rem 0;
     margin: 0;
     border-top: 1px solid #dee2e6;
-    background-color: #f8f9fa;
-    flex-shrink: 0; /* Prevent pagination from being compressed */
-}
-
-/* Top pagination */
-.bs-multiselect-pagination.pagination-top {
-    border-top: none;
     border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
 }
 
-/* Bottom pagination */
-.bs-multiselect-pagination.pagination-bottom {
-    border-top: 1px solid #dee2e6;
+.bs-multiselect-pagination:first-child {
+    border-top: none;
+}
+
+.bs-multiselect-pagination:last-child {
     border-bottom: none;
-}
-
-/* When pagination is on both sides */
-.bs-multiselect-pagination.pagination-top + .bs-multiselect-options {
-    border-top: 1px solid #dee2e6;
 }
 
 .bs-multiselect-prev-page,

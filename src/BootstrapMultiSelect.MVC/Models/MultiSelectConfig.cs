@@ -89,5 +89,35 @@ namespace BootstrapMultiSelect.MVC.Models
         /// Requires the language file to be loaded: ~/js/langs/jquery-bootstrap-multiselect.{lang}.js
         /// </remarks>
         public string? Lang { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to enable pagination
+        /// </summary>
+        public bool EnablePagination { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets the number of items per page when pagination is enabled
+        /// </summary>
+        public int ItemsPerPage { get; set; } = 10;
+
+        /// <summary>
+        /// Gets or sets the text for the Previous button in pagination
+        /// </summary>
+        public string PaginationPrevText { get; set; } = "Previous";
+
+        /// <summary>
+        /// Gets or sets the text for the Next button in pagination
+        /// </summary>
+        public string PaginationNextText { get; set; } = "Next";
+
+        /// <summary>
+        /// Gets or sets the template for the pagination info text (e.g., "Page {current} of {total}")
+        /// </summary>
+        public string PaginationInfoText { get; set; } = "Page {current} of {total}";
+
+        /// <summary>
+        /// Gets or sets the position of pagination controls: 'top', 'bottom', or 'both'
+        /// </summary>
+        public string PaginationPosition { get; set; } = "bottom";
     }
 }
