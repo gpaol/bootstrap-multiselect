@@ -162,7 +162,7 @@ Paolo Gaetano
 
 Contributions, issues, and feature requests are welcome!
 
-See the [Contributing Guide](https://github.com/gpaol/bootstrap-multiselect/blob/main/CONTRIBUTING.md) for detailed guidelines.
+See [CONTRIBUTING.md](../../../../CONTRIBUTING.md) for detailed guidelines.
 
 ## 🔗 Links
 

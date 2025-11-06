@@ -219,6 +219,9 @@ Each language file translates the following strings:
 | `deselectAllText` | "Deselect All" | Deselect all button text |
 | `noResultsText` | "No results found" | Message when search has no results |
 | `itemsSelectedText` | "items selected" | Text shown when 4+ items are selected (e.g., "5 items selected") |
+| `paginationPrevText` | "Previous" | Previous page button text |
+| `paginationNextText` | "Next" | Next page button text |
+| `paginationInfoText` | "Page {current} of {total}" | Page information text ({current} and {total} are placeholders) |
 
 ## Examples
 
@@ -300,7 +303,10 @@ To add a new language, create a file `jquery-bootstrap-multiselect.{code}.js`:
         selectAllText: 'すべて選択',
         deselectAllText: 'すべて選択解除',
         noResultsText: '結果が見つかりません',
-        itemsSelectedText: '個のアイテムが選択されました'
+        itemsSelectedText: '個のアイテムが選択されました',
+        paginationPrevText: '前へ',
+        paginationNextText: '次へ',
+        paginationInfoText: 'ページ {current} / {total}'
     };
 
     // Note: This file only registers the translation.
@@ -390,11 +396,11 @@ We welcome contributions of new localization files! Please:
 
 1. Fork the repository
 2. Create a new locale file following the naming convention
-3. Ensure all 6 text keys are translated
+3. Ensure all 9 text keys are translated
 4. Update this README with the new language
 5. Submit a pull request
 
-See [CONTRIBUTING.md](../../../../../CONTRIBUTING.md) for detailed guidelines.
+See [CONTRIBUTING.md](../../../../CONTRIBUTING.md) for detailed guidelines.
 
 ## License
 

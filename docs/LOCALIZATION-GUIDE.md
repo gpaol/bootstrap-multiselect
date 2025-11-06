@@ -258,7 +258,7 @@ Now all multiselect instances automatically use the user's language!
 
 ## 🔤 Translated Texts
 
-Each language file translates these 6 text strings:
+Each language file translates these 9 text strings:
 
 | Key | English | Italian | Spanish | French | German | Portuguese |
 |-----|---------|---------|---------|--------|--------|------------|
@@ -268,6 +268,9 @@ Each language file translates these 6 text strings:
 | `deselectAllText` | "Deselect All" | "Deseleziona Tutti" | "Deseleccionar Todo" | "Tout Désélectionner" | "Alle Abwählen" | "Desmarcar Tudo" |
 | `noResultsText` | "No results found" | "Nessun risultato trovato" | "No se encontraron resultados" | "Aucun résultat trouvé" | "Keine Ergebnisse gefunden" | "Nenhum resultado encontrado" |
 | `itemsSelectedText` | "items selected" | "elementi selezionati" | "elementos seleccionados" | "éléments sélectionnés" | "Elemente ausgewählt" | "itens selecionados" |
+| `paginationPrevText` | "Previous" | "Precedente" | "Anterior" | "Précédent" | "Zurück" | "Anterior" |
+| `paginationNextText` | "Next" | "Successivo" | "Siguiente" | "Suivant" | "Weiter" | "Próximo" |
+| `paginationInfoText` | "Page {current} of {total}" | "Pagina {current} di {total}" | "Página {current} de {total}" | "Page {current} sur {total}" | "Seite {current} von {total}" | "Página {current} de {total}" |
 
 ## ⚡ Priority Order
 
@@ -460,7 +463,10 @@ To add a new language (e.g., Japanese):
         selectAllText: 'すべて選択',
         deselectAllText: 'すべて選択解除',
         noResultsText: '結果が見つかりません',
-        itemsSelectedText: '個のアイテムが選択されました'
+        itemsSelectedText: '個のアイテムが選択されました',
+        paginationPrevText: '前へ',
+        paginationNextText: '次へ',
+        paginationInfoText: 'ページ {current} / {total}'
     };
 
 })(jQuery);
