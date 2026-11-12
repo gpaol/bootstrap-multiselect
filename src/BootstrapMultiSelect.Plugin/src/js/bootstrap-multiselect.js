@@ -1368,13 +1368,16 @@
          */
         enable() {
             this.$button.prop('disabled', false);
+            this.$dropdownMenu.prop('inert', false);
         }
 
         /**
          * Disable the multiselect
          */
         disable() {
+            this.$button.dropdown?.('hide');
             this.$button.prop('disabled', true);
+            this.$dropdownMenu.prop('inert', true);
         }
 
         /**
